@@ -5,7 +5,7 @@ import plotly.express as px
 #teste
 def main():
     # Carregar o DataFrame (substitua esta linha pelo seu próprio DataFrame)
-    df = pd.read_excel("cardio.xlsx")
+    df = pd.read_excel("Data/cardio.xlsx")
 
     # Exibir o DataFrame
     st.write("## DataFrame:")
