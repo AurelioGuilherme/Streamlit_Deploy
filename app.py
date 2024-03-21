@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+#teste
 def main():
     # Carregar o DataFrame (substitua esta linha pelo seu próprio DataFrame)
     df = pd.read_excel("cardio.xlsx")
