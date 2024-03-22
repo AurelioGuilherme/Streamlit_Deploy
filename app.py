@@ -1,38 +1,45 @@
 import streamlit as st
-import pandas as pd
-import plotly.express as px
+import torch
+import pytorch_lightning as pl
+from streamlit_option_menu import option_menu
 
-#teste
+# Menu lateral
+with st.sidebar:
+    selected = option_menu("",['0 - O que são tensores?',
+                               '1 - Tensores PyTorch x Arrays NumPy'], 
+                           menu_icon="", default_index=0)
+
 def main():
-    # Carregar o DataFrame (substitua esta linha pelo seu próprio DataFrame)
-    df = pd.read_excel("Data/cardio.xlsx")
+    if selected == '0 - O que são tensores?':
+        st.write('## O que são tensores?')
+        st.write('''\nEm matemática, um tensor é um objeto geométrico 
+                    arbitrariamente complexo que mapeia de maneira (multi) 
+                    linear vetores geométricos, escalares e outros tensores 
+                    para um tensor resultante.Mas em Deep Learning o conceito 
+                    é um pouco diferente e você pode pensar no tensor como um 
+                    recipiente que contém números. Um tensor é uma estrutura de 
+                    dados que pode ter qualquer número de dimensões.\n''')
+        st.image('imagens/tensor.png')
 
-    # Exibir o DataFrame
-    st.write("## DataFrame:")
-    st.write(df)
+    elif selected == '1 - Tensores PyTorch x Arrays NumPy':
+        st.write("# **Tensores PyTorch x Arrays NumPy:**\n")
+        st.write('### Você pode criar tensores a partir de listas ou matrizes numpy e vice-versa.')
+        st.write("Cria um tensor 2x3 a partir de uma lista Python")
+        lista_python = [[1,2,3], [4,5,6]]
+        t1 = torch.tensor(lista_python)
+        #st.write(t1)
+        
+        # Mostrar o código
+        with st.expander("Mostrar Código"):
+            st.code("""
+import torch
 
-    # Opções para selecionar coluna
-    coluna_selecionada = st.selectbox("Selecione uma coluna:", df.columns)
-
-    # Gerar estatísticas básicas para a coluna selecionada
-    st.write("## Estatísticas básicas para a coluna selecionada:")
-    st.write(df[coluna_selecionada].describe())
-
-    # Opções para selecionar o tipo de gráfico
-    tipo_grafico = st.selectbox("Selecione o tipo de gráfico:",
-                                ["Pizza", "Barras", "Linhas"])
-
-    # Gerar o gráfico conforme o tipo selecionado
-    if tipo_grafico == "Pizza":
-        fig = px.pie(df, names=df[coluna_selecionada])
-    elif tipo_grafico == "Barras":
-        fig = px.bar(df, x=df.index, y=coluna_selecionada)
-    elif tipo_grafico == "Linhas":
-        fig = px.line(df, x=df.index, y=coluna_selecionada)
-
-    # Exibir o gráfico
-    st.write("## Gráfico:")
-    st.plotly_chart(fig)
+# Cria um tensor 2x3 a partir de uma lista Python
+lista_python = [[1,2,3], [4,5,6]]
+t1 = torch.tensor(lista_python)
+print(t1)
+            """, language="python")
+            st.write(t1)
 
 if __name__ == "__main__":
     main()
