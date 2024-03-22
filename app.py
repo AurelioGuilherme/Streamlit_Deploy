@@ -7,7 +7,8 @@ import numpy as np
 # Menu lateral
 with st.sidebar:
     selected = option_menu("",['0 - O que são tensores?',
-                               '1 - Tensores PyTorch x Arrays NumPy'], 
+                               '1 - Tensores PyTorch x Arrays NumPy',
+                               '2 - Size e Shape de Tensores'], 
                            menu_icon="", default_index=0)
 
 def main():
@@ -59,7 +60,7 @@ print(t2)
 
         st.write('# Tipos de Tensores no PyTorch')
         st.write('Cria um tensor 2 x 2 x 3 com valores randômicos')
-        a = torch.rand(2,2,2)
+        a = torch.rand(2,2,3)
 
         # Mostrar código
         with st.expander('Mostrar código'):
@@ -67,7 +68,7 @@ print(t2)
 import torch
                                          
 # Cria um tensor 2 x 2 x 3 com valores randômicos                   
-a = torch.rand(2,2,2)
+a = torch.rand(2,2,3)
 print(a)                    
             ''', language='python')
             st.write(a)
@@ -99,6 +100,109 @@ c = torch.zeros_like(a)
 print(c)                    
             ''', language='python')
             st.write(c)
+
+        st.write("Criando um tensor de 1's semelhante (like) ao tensor de zeros (mesmas dimensões)")
+        d = torch.ones_like(a)
+
+        # Mostrar código
+        with st.expander('Mostrar código'):
+            st.code('''
+import torch
+                                         
+# Criando um tensor de 1's semelhante (like) ao tensor de zeros (mesmas dimensões)             
+d = torch.ones_like(a)
+print(d)                    
+            ''', language='python')
+            st.write(d, unsafe_allow_html=True)
+
+        st.write('Criando tensores de diferentes tipos')
+        a = np.array([[4,5,6], [7,8,9]])
+        b = torch.Tensor(a)
+        c = torch.FloatTensor(a)
+        d = torch.LongTensor(a)
+
+
+        # Mostrar código
+        with st.expander('Mostrar código'):
+            st.code('''
+import torch
+                                         
+# Criando tensores de diferentes tipos            
+a = np.array([[4,5,6], [7,8,9]])
+b = torch.Tensor(a)
+c = torch.FloatTensor(a)
+d = torch.LongTensor(a)
+print(f'b: {b.type()}')
+print(f'c: {c.type()}')
+print(f'd: {d.type()}')                   
+            ''', language='python')
+            st.write(f" b: {b.type()}", unsafe_allow_html=True)
+            st.write(f" c: {c.type()}", unsafe_allow_html=True)
+            st.write(f" d: {d.type()}", unsafe_allow_html=True)
+            
+        st.write('Criando tensor a partir da lista de booleanos')
+        e = [True, False,True, True, True, False]
+        f = torch.Tensor(e)
+
+        # Mostrar código
+        with st.expander('Mostrar código'):
+            st.code('''
+import torch
+                                         
+# Criando tensor a partir da lista de booleanos          
+e = [True, False, True, True, False]
+f = torch.Tensor(e)
+print(f)
+print(f.type())           
+            ''', language='python')
+            st.write(f)
+            st.write(f.type())
+        
+        st.write('Criando tensor com valores booleanos')
+        g = torch.zeros(10, dtype = torch.bool)
+
+        # Mostrar código
+        with st.expander('Mostrar código'):
+            st.code('''
+import torch
+                                         
+# Criando tensor com valores booleanos         
+g = torch.zeros(10, dtype = torch.bool)
+print(g)
+print(g.type())           
+            ''', language='python')
+            st.write(g)
+            st.write(g.type())
+        
+        st.write('Alterando o tipo do tensor:')
+        a = np.array([[4,5,6], [7,8,9]])
+        c = torch.FloatTensor(a)
+        valor = c
+        c = c.long()
+        
+        # Mostrar código
+        with st.expander('Mostrar código'):
+            st.code('''
+import torch
+                                         
+# Alterando o tipo do tensor:
+a = np.array([[4,5,6], [7,8,9]])
+c = torch.FloatTensor(a)
+print(c.type())
+c = c.long()
+print(c)
+print(c.type())                                     
+            ''', language='python')
+            st.write(valor.type())
+            st.write(c)
+            st.write(c.type())
+            
+    elif selected == '2 - Size e Shape de Tensores':
+        st.write('# Size e Shape de Tensores')
+
+
+            
+
 
 
 
