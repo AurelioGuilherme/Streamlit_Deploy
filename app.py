@@ -2,6 +2,7 @@ import streamlit as st
 import torch
 import pytorch_lightning as pl
 from streamlit_option_menu import option_menu
+import numpy as np
 
 # Menu lateral
 with st.sidebar:
@@ -26,9 +27,8 @@ def main():
         st.write('### Você pode criar tensores a partir de listas ou matrizes numpy e vice-versa.')
         st.write("Cria um tensor 2x3 a partir de uma lista Python")
         lista_python = [[1,2,3], [4,5,6]]
-        t1 = torch.tensor(lista_python)
-        #st.write(t1)
-        
+        t1 = torch.tensor(lista_python)  
+
         # Mostrar o código
         with st.expander("Mostrar Código"):
             st.code("""
@@ -40,6 +40,22 @@ t1 = torch.tensor(lista_python)
 print(t1)
             """, language="python")
             st.write(t1)
+
+        st.write('Cria um tensor 2x3 a partir de um array Numpy')
+        array_numpy = np.array([[9,6,1], [5,3,2]])
+        t2 = torch.Tensor(array_numpy)
+
+        # Mostrar código
+        with st.expander('Mostrar código'):
+            st.code('''
+import torch
+                                         
+# Cria um tensor 2x3 a partir de um array Numpy                    
+array_numpy = np.array([[9,6,1], [5,3,2]])
+t2 = torch.Tensor(array_numpy)
+print(t2)                    
+            ''', language='python')
+            st.write(t2)
 
 if __name__ == "__main__":
     main()
