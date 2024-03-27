@@ -8,7 +8,7 @@ import numpy as np
 with st.sidebar:
     selected = option_menu("",['0 - O que são tensores?',
                                '1 - Tensores PyTorch x Arrays NumPy',
-                               '2 - Size e Shape de Tensores'], 
+                               '2 - Trabalhando com as dimensões dos Tensores'], 
                            menu_icon="", default_index=0)
 
 def main():
@@ -197,11 +197,118 @@ print(c.type())
             st.write(c)
             st.write(c.type())
             
-    elif selected == '2 - Size e Shape de Tensores':
-        st.write('# Size e Shape de Tensores')
+    elif selected == '2 - Trabalhando com as dimensões dos Tensores':
+        st.write('# Trabalhando com as dimensões dos Tensores')
+        st.write('### Size e Shape de Tensores')
+        st.write('Visualizando as dimensões dos tensores com `shape` e `size()`')
+        st.write('`shape`: é um atributo')
+        st.write('`size()`:  é um método')
+        
+        # Cria um tensor com valores randômicos
+        torch.manual_seed(777)
+        x = torch.randint(0, 10, size = (2, 3, 4))
+
+# Mostrar código
+        with st.expander('Mostrar código'):
+            st.code('''
+import torch
+                                         
+# Cria um tensor com valores randômicos
+torch.manual_seed(777)
+x = torch.randint(0, 10, size = (2, 3, 4))                   
+print(x)
+                    
+# Shape - Atributo do objeto tensor
+x.shape
+
+# Size - Método do objeto tensor
+x.size()                    
+
+# Número total de elementos no Tensor                                   
+torch.numel(x)
+
+# Alterando o size do tensor (mas sem mudar o tensor original)
+print(x.view(2, 2, 6))                                   
+            ''', language='python')
+            st.write(x)
+            st.write(x.shape)
+            st.write(x.size())
+            st.write(torch.numel(x))
 
 
+        st.write('### View')
+        st.write('Alterando o size do tensor (mas sem mudar o tensor original) com `view()`')
+        
+        # Mostrar código
+        with st.expander('Mostrar código'):
+            st.code('''
+import torch
+                                         
+# Cria um tensor com valores randômicos
+torch.manual_seed(777)
+x = torch.randint(0, 10, size = (2, 3, 4))                   
+
+# Alterando o size do tensor (mas sem mudar o tensor original)
+print(f"Altera de '{x.size()}' para '{x.view(2, 2, 6).size()}'\n")     
+print(x.view(2, 2, 6))                                                     
+            ''', language='python')
+            st.write(f"Altera de '{x.size()}' para '{x.view(2, 2, 6).size()}'\n")
+            st.write(x.view(2, 2, 6))
+
+        st.write('Também podemos usar o método `view()` para criar um tensor')
+        t = torch.arange(60).view(3, 4, 5)
+        with st.expander('Mostrar código:'):
+            st.code('''
+import torch
+
+t = torch.arange(60).view(3, 4, 5)
+print(t)
+print(t.shape)
+print(t.size())
+print(torch.numel(t))
+''', language= 'python')
+            st.write(t) 
+            st.write(t.shape) 
+            st.write(t.size()) 
+            st.write(torch.numel(t))
+
+
+        
+        def create_tensor(dimensions):
+            try:
+                return torch.randint(low=0, high=11, size=dimensions)
+            except ValueError:
+                st.error('Digite dimensões válidas para o tensor (números inteiros separados por vírgula).')
+
+        st.write("### Slicing de Tensores")
+        st.write('Criando um tensor com dimensões customizadas e com seed definida.')
+        st.write('Valores entre: 0 a 10')
+        torch.manual_seed(222)
+        dim_input = st.text_input("Digite as dimensões do tensor separadas por vírgula (ex: 3,4,5):")
+
+        if dim_input:
+            dimensions = [int(dim) for dim in dim_input.split(',') if dim.isdigit()]
+            dimensions = [max(0, min(dim, 9999999)) for dim in dimensions]
+            x = create_tensor(dimensions)
+            st.write(x)
+            st.write('**Fazendo slice**')
+            st.write(f'O tensor possui: {x.ndim} dimensões') 
+            slice_input = st.text_input("Digite os valores para o slice do tensor separados por vírgula (limitado à quantidade de dimensões):")
+            try:
+                if slice_input:
+                    slices = [int(s) for s in slice_input.split(',') if s.isdigit()]
+                    result = x[tuple(slices)]  # Convertendo para uma tupla para indexação
+                    st.write("Resultado do slicing:", result)
+            except IndexError:
+                st.error("Índices de slice inválidos.")
+
+
+
+
+    
             
+
+
 
 
 
