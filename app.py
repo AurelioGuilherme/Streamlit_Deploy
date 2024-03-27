@@ -4,12 +4,19 @@ import pytorch_lightning as pl
 from streamlit_option_menu import option_menu
 import numpy as np
 
+
 # Menu lateral
 with st.sidebar:
+    st.image('imagens/pytorch-logo.png',width=200)
+    st.sidebar.title('PyTorch Fundamentos')
     selected = option_menu("",['0 - O que são tensores?',
                                '1 - Criando Tensores',
                                '2 - Trabalhando com as dimensões dos Tensores'], 
                            menu_icon="", default_index=0)
+
+st.write("[Conheça o meu GitHub](https://github.com/AurelioGuilherme)")
+st.write("[Documentação PyTorch](https://pytorch.org/docs/stable/index.html)")
+
 
 def main():
     if selected == '0 - O que são tensores?':
