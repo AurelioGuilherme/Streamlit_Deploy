@@ -166,10 +166,8 @@ def main():
         4. Tensor Byte: Este tipo de tensor é semelhante ao tensor booleano, mas pode armazenar valores inteiros de 0 a 255, ocupando menos espaço de memória do que um tensor inteiro de 32 bits. É comumente utilizado em operações de processamento de imagens.
 
         A existência de múltiplos tipos de tensores no PyTorch se deve à necessidade de flexibilidade e eficiência em diferentes cenários de aplicação. Cada tipo de tensor oferece um compromisso entre precisão e eficiência computacional, permitindo aos desenvolvedores escolher o tipo mais adequado para a sua aplicação específica. Isso permite otimizar o desempenho e o consumo de recursos do modelo, garantindo ao mesmo tempo a precisão necessária para as tarefas em questão.
-                """)
-
-        #c = torch.FloatTensor(a)
-        #d = torch.LongTensor(a)
+                
+        **Vejamos um exemplo de criação tensores:**""")
 
         a = np.array([[4,5,6], [7,8,9]])
         with st.expander('Criando numpy array'):
@@ -182,73 +180,85 @@ def main():
                                        
                     ''', language='python')
             st.write(f'Tipo de dado Array Numpy: {a.dtype}')
+            st.write(a)
 
+        st.write('Por padrão o PyTorch utiliza o `FloatTensor` ao criar um objeto da classe tensor.')
+        
         b = torch.Tensor(a)
-        with st.expander('Criando tensor utilizando o array criado anteriormente'):
+        with st.expander('Criando tensor utilizando o array'):
             st.code('''
                         import torch
                     
-                        # Array numpy           
+                        # Criando um Tensor.       
                         b = torch.Tensor(a)
-                        print(f'Tipo de dado Tensor: {b.type()}')
+                        print(f'Tipo de dado `Tensor`: {b.type()}')
                                        
                     ''', language='python')
             st.write(f"Tipo de dado Tensor: {b.type()}", unsafe_allow_html=True)
+            st.write(b)
         
+        c = torch.FloatTensor(a)
+        with st.expander('Criando tensor um `FloatTensor` utilizando um array.'):
+            st.code('''
+                        import torch
+                    
+                        # Criando um FloatTensor        
+                        c = torch.FloatTensor(a)
+                        print(f'Tipo de dado `FloatTensor`: {c.type()}')
+                                       
+                    ''', language='python')
+            st.write(f"Tipo de dado Tensor: {c.type()}", unsafe_allow_html=True)
+            st.write(c)
 
-        ## Mostrar código
-        #with st.expander('Criando numpy array'):
-        #    st.code('''
-        #                import torch
-#
-        #                # Criando tensores de diferentes tipos            
-        #                a = np.array([[4,5,6], [7,8,9]])
-        #                b = torch.Tensor(a)
-        #                c = torch.FloatTensor(a)
-        #                d = torch.LongTensor(a)
-        #                print(f'b: {b.type()}')
-        #                print(f'c: {c.type()}')
-        #                print(f'd: {d.type()}')                   
-        #            ''', language='python')
-        #    st.write(f" b: {b.type()}", unsafe_allow_html=True)
-        #    st.write(f" c: {c.type()}", unsafe_allow_html=True)
-        #    st.write(f" d: {d.type()}", unsafe_allow_html=True)
-        #    
-        st.write('Criando tensor a partir da lista de booleanos')
+        d = torch.LongTensor(a)
+        with st.expander('Criando tensor um `LongTensor` utilizando o array.'):
+            st.code('''
+                        import torch
+                    
+                        # Criando um LongTensor        
+                        d = torch.LongTensor(a)
+                        print(f'Tipo de dado Tensor: {d.type()}')
+                                       
+                    ''', language='python')
+            st.write(f"Tipo de dado Tensor: {d.type()}", unsafe_allow_html=True)
+            st.write(d)            
+
         e = [True, False,True, True, True, False]
         f = torch.Tensor(e)
-
-        # Mostrar código
-        with st.expander('Mostrar código'):
+        with st.expander('Criando tensor a partir da lista de booleanos'):
             st.code('''
-import torch
-                                         
-# Criando tensor a partir da lista de booleanos          
-e = [True, False, True, True, False]
-f = torch.Tensor(e)
-print(f)
-print(f.type())           
-            ''', language='python')
+                        import torch
+
+                        # Criando tensor a partir da lista de booleanos          
+                        e = [True, False, True, True, False]
+                        f = torch.Tensor(e)
+                        print(f)
+                        print(f.type())           
+                    ''', language='python')
             st.write(f)
             st.write(f.type())
         
-        st.write('Criando tensor com valores booleanos')
         g = torch.zeros(10, dtype = torch.bool)
-
-        # Mostrar código
-        with st.expander('Mostrar código'):
+        with st.expander('Criando tensor com valores booleanos'):
             st.code('''
-import torch
-                                         
-# Criando tensor com valores booleanos         
-g = torch.zeros(10, dtype = torch.bool)
-print(g)
-print(g.type())           
-            ''', language='python')
+                        import torch
+
+                        # Criando tensor com valores booleanos         
+                        g = torch.zeros(10, dtype = torch.bool)
+                        print(g)
+                        print(g.type())           
+                    ''', language='python')
             st.write(g)
             st.write(g.type())
         
-        st.write('Alterando o tipo do tensor:')
+        st.write('### Alterando o tipo do tensor:')
+        st.write("""
+        É comum a necessidade de converter tensores de um tipo para outro. Isso pode ser útil em várias situações, como quando precisamos garantir a consistência dos tipos de dados em operações matemáticas ou quando queremos adaptar os tensores para diferentes operações ou modelos.
+
+        Para converter um tensor para outro tipo, o PyTorch oferece diversos métodos. Por exemplo, podemos utilizar o método `.float()` para converter um tensor para ponto flutuante, ou `.long()` para converter para números inteiros. Também é possível utilizar métodos como `.double()`, `.half()`, `.bool()`, entre outros, dependendo das necessidades específicas da aplicação.
+
+        Vejamos um exemplo de conversão de tipos de tensores:
+                 """)
         a = np.array([[4,5,6], [7,8,9]])
         c = torch.FloatTensor(a)
         valor = c
@@ -257,22 +267,23 @@ print(g.type())
         # Mostrar código
         with st.expander('Mostrar código'):
             st.code('''
-import torch
-                                         
-# Alterando o tipo do tensor:
-a = np.array([[4,5,6], [7,8,9]])
-c = torch.FloatTensor(a)
-print(c.type())
-c = c.long()
-print(c)
-print(c.type())                                     
-            ''', language='python')
+                        import torch
+
+                        # Alterando o tipo do tensor:
+                        a = np.array([[4,5,6], [7,8,9]])
+                        c = torch.FloatTensor(a)
+                        print(c.type())
+                        c = c.long()
+                        print(c)
+                        print(c.type())                                     
+                    ''', language='python')
             st.write(valor.type())
             st.write(c)
             st.write(c.type())
             
     elif selected == '2 - Trabalhando com as dimensões dos Tensores':
         st.write('# Trabalhando com as dimensões dos Tensores')
+        st.write('O slicing permite extrair partes específicas de um tensor, permitindo o acesso aos elementos desejados.')
         st.write('### Size e Shape de Tensores')
         st.write('Visualizando as dimensões dos tensores com `shape` e `size()`')
         st.write('`shape`: é um atributo')
@@ -282,28 +293,28 @@ print(c.type())
         torch.manual_seed(777)
         x = torch.randint(0, 10, size = (2, 3, 4))
 
-# Mostrar código
+
         with st.expander('Mostrar código'):
             st.code('''
-import torch
-                                         
-# Cria um tensor com valores randômicos
-torch.manual_seed(777)
-x = torch.randint(0, 10, size = (2, 3, 4))                   
-print(x)
-                    
-# Shape - Atributo do objeto tensor
-x.shape
+                        import torch
 
-# Size - Método do objeto tensor
-x.size()                    
+                        # Cria um tensor com valores randômicos
+                        torch.manual_seed(777)
+                        x = torch.randint(0, 10, size = (2, 3, 4))                   
+                        print(x)
 
-# Número total de elementos no Tensor                                   
-torch.numel(x)
+                        # Shape - Atributo do objeto tensor
+                        x.shape
 
-# Alterando o size do tensor (mas sem mudar o tensor original)
-print(x.view(2, 2, 6))                                   
-            ''', language='python')
+                        # Size - Método do objeto tensor
+                        x.size()                    
+
+                        # Número total de elementos no Tensor                                   
+                        torch.numel(x)
+
+                        # Alterando o size do tensor (mas sem mudar o tensor original)
+                        print(x.view(2, 2, 6))                                   
+                    ''', language='python')
             st.write(x)
             st.write(x.shape)
             st.write(x.size())
@@ -355,21 +366,31 @@ print(torch.numel(t))
                 st.error('Digite dimensões válidas para o tensor (números inteiros separados por vírgula).')
 
         st.write("### Slicing de Tensores")
-        st.write('Criando um tensor com dimensões customizadas e com seed definida.')
-        st.write('''Sintaxe:
+        st.write('''
+        Para realizar o slicing de um tensor, precisamos especificar os índices ou intervalos ao longo de cada dimensão do tensor. Podemos usar notações de intervalo para especificar o slicing de forma concisa e intuitiva.''')
+        
+        st.write('''
+                    Sintaxe:
 
-`tensor[tensor_position_start:tensor_position_end, tensor_dimension_start:tensor_dimension_end , tensor_value_start:tensor_value_end]`
+                    `tensor[tensor_position_start:tensor_position_end, tensor_dimension_start:tensor_dimension_end , tensor_value_start:tensor_value_end]`
 
-Parâmetros:
+                    Parâmetros:
 
-- tensor_position_start
-- tensor_position_end
-- tensor_dimension_start
-- tensor_dimension_stop
-- tensor_value_start
-- tensor_value_stop
-''')
-        st.write('Valores entre: 0 a 10')
+                    - tensor_position_start
+                    - tensor_position_end
+                    - tensor_dimension_start
+                    - tensor_dimension_stop
+                    - tensor_value_start
+                    - tensor_value_stop
+                ''')
+        st.write('''
+                 Vamos exemplificar com um exemplo interativo onde você pode fornecer as dimensões em um imput logo a baixo:
+                 
+                Neste exemplo é criado um tensor com dimensões customizadas de acordo com o input e com seed definida para ter a possibilidade replicação.
+                
+                Os valores dos tensores são valore inteiros de 0 a 10.
+                 ''')
+        st.write('### Exemplo com input:')
         torch.manual_seed(222)
         dim_input = st.text_input("Digite as dimensões do tensor separadas por vírgula (ex: 3,4,5):")
 
@@ -469,21 +490,6 @@ Parâmetros:
                         print(sliced_tensor_5d)
                     ''', language='python')
              st.write(sliced_tensor_5d)
-
-
-
-
-
-        
-
-
-    
-            
-
-
-
-
-
 
 
 if __name__ == "__main__":
