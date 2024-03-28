@@ -9,6 +9,7 @@ current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
 css_file = current_dir / 'styles' / 'main.css'
 resume_file = current_dir / 'assets' / 'CV.pdf'
 profile_pic = current_dir / 'assets' / 'profile-pic.png'
+linkedin_pic = current_dir / 'assets' / 'linkedin.jpg'
 
 # --- General Settings ---
 
@@ -28,6 +29,8 @@ SOCIAL_MEDIA = {"LinkedIn": "https://www.linkedin.com/in/aurelio-guilherme-silva
                 "GitHub": "https://github.com/AurelioGuilherme",
                 'Instagram': "https://www.instagram.com/aurelio_gss/",
                 "Hugging Face": "https://huggingface.co/Aurelio-Guilherme"}
+
+
 
 
 st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON)
