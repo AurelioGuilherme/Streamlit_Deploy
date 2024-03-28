@@ -5,6 +5,10 @@ from streamlit_option_menu import option_menu
 import numpy as np
 
 
+PAGE_TITLE = 'PyTorch Fundamentos 🤖'
+PAGE_ICON = "🤖"
+st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON)
+
 # Menu lateral
 with st.sidebar:
     st.image('imagens/pytorch-logo.png',width=200)
