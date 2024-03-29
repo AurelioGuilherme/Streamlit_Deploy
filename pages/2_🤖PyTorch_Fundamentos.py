@@ -32,43 +32,65 @@ def main():
     if selected == '0 - O que são tensores?':
         st.write('# **O que são tensores?**')
         st.write("""
-        O objeto tensor utilizado no framework PyTorch é focado e projetado para processamento paralelizado. 
+                    O objeto tensor utilizado no framework PyTorch é focado 
+                    e projetado para processamento paralelizado. 
         
-        Ele representa uma estrutura de dados multidimensional que pode ser manipulada de forma eficiente em GPUs e CPUs. 
+                    Ele representa uma estrutura de dados multidimensional 
+                    que pode ser manipulada de forma eficiente em GPUs e CPUs. 
         
-        Essa capacidade de processamento paralelo é essencial para lidar com grandes conjuntos de dados e realizar cálculos complexos de forma eficiente. 
+                    Essa capacidade de processamento paralelo é essencial 
+                    para lidar com grandes conjuntos de dados e realizar 
+                    cálculos complexos de forma eficiente. 
         
-        Os tensores no PyTorch são a base para a construção de modelos de aprendizado profundo e outras tarefas de computação científica, 
-        fornecendo uma maneira flexível e eficaz de representar e manipular dados em várias dimensões.
-        """)
+                    Os tensores no PyTorch são a base para a construção de 
+                    modelos de aprendizado profundo e outras tarefas de 
+                    computação científica, fornecendo uma maneira flexível 
+                    e eficaz de representar e manipular dados em várias dimensões.
+                 """)
 
         st.image('imagens/tensor.png')
 
         st.write("""
-        Os tensores são amplamente utilizados em várias áreas, incluindo aprendizado de máquina, visão computacional, processamento de linguagem natural e física, entre outros. 
+                    Os tensores são amplamente utilizados em várias áreas, 
+                    incluindo aprendizado de máquina, visão computacional, 
+                    processamento de linguagem natural e física, entre outros. 
         
-        Eles fornecem uma maneira flexível e eficiente de representar e manipular dados em várias dimensões. 
+                    Eles fornecem uma maneira flexível e eficiente de 
+                    representar e manipular dados em várias dimensões. 
         
-        No aprendizado de máquina, os tensores são usados para representar conjuntos de dados, parâmetros de modelo, gradientes durante o treinamento e resultados de predição. 
+                    No aprendizado de máquina, os tensores são usados para 
+                    representar conjuntos de dados, parâmetros de modelo, 
+                    gradientes durante o treinamento e resultados de predição. 
         
-        Eles são a base para a construção de modelos de aprendizado profundo, como redes neurais convolucionais e redes neurais recorrentes. 
+                    Eles são a base para a construção de modelos de aprendizado 
+                    profundo, como redes neurais convolucionais e redes neurais recorrentes. 
         
-        Além disso, em computação científica, os tensores são usados para representar tensores de tensão em mecânica, campos vetoriais em física e muito mais. 
-        Sua capacidade de processamento paralelo em hardware especializado os torna essenciais para lidar com grandes volumes de dados e realizar cálculos complexos de forma eficiente.
-        """)
+                    Além disso, em computação científica, os tensores são 
+                    usados para representar tensores de tensão em mecânica, 
+                    campos vetoriais em física e muito mais. 
+                    Sua capacidade de processamento paralelo em hardware 
+                    especializado os torna essenciais para lidar com grandes 
+                    volumes de dados e realizar cálculos complexos de forma eficiente.
+                """)
         st.image('imagens/img-1.png')
 
         st.write("""
-        Os tensores têm uma ampla gama de aplicações práticas em diversas áreas. 
+                    Os tensores têm uma ampla gama de aplicações práticas em diversas áreas. 
                  
-        No processamento de imagens, os tensores são usados para representar imagens digitais em três ou mais dimensões (largura, altura e canais de cor). 
+                    No processamento de imagens, os tensores são usados para representar 
+                    imagens digitais em três ou mais dimensões (largura, altura e canais de cor). 
         
-        Isso permite realizar operações como convoluções e pooling em imagens para tarefas como classificação e detecção de objetos. 
+                    Isso permite realizar operações como convoluções e pooling em imagens 
+                    para tarefas como classificação e detecção de objetos. 
         
-        Em processamento de linguagem natural, os tensores são usados para representar sequências de palavras em texto e realizar operações como embeddings e atenção em modelos de processamento de linguagem. 
+                    Em processamento de linguagem natural, os tensores são usados para 
+                    representar sequências de palavras em texto e realizar operações 
+                    como embeddings e atenção em modelos de processamento de linguagem. 
         
-        Além disso, em física e engenharia, os tensores são usados para representar grandezas físicas como tensão, deformação e fluxo de calor em sistemas complexos.
-        """)
+                    Além disso, em física e engenharia, os tensores são usados 
+                    para representar grandezas físicas como tensão, deformação e 
+                    fluxo de calor em sistemas complexos.
+                """)
         st.image('imagens/April-28-deep-learning-applications-infograph.png')
         
     elif selected == '1 - Criando Tensores':
@@ -76,8 +98,12 @@ def main():
         st.write("### Tensores PyTorch x Arrays NumPy:\n")
 
         st.write("""
-        Os tensores no PyTorch são estruturas de dados multidimensionais que podem ter uma ou mais dimensões. As dimensões de um tensor representam a forma ou o tamanho de cada eixo do tensor. Por exemplo, um tensor bidimensional tem duas dimensões: uma dimensão para linhas e outra para colunas. 
-        """)
+                    Os tensores no PyTorch são estruturas de dados multidimensionais 
+                    que podem ter uma ou mais dimensões. As dimensões de um tensor 
+                    representam a forma ou o tamanho de cada eixo do tensor. Por exemplo, 
+                    um tensor bidimensional tem duas dimensões: uma dimensão 
+                    para linhas e outra para colunas. 
+                """)
 
         st.write('Você pode criar tensores a partir de listas ou matrizes numpy e vice-versa utilizando a função `.Tensor()`')
         st.write('Esta função cria um objeto do tipo tensor')
@@ -114,10 +140,25 @@ def main():
 
         st.write('### Tipos de Tensores no PyTorch')
         st.write('''
-        Ao criar tensores, podemos especificar suas dimensões e inicializá-los com diferentes valores. Por exemplo, podemos criar um tensor de zeros, onde todos os elementos do tensor têm o valor zero. Isso é útil para inicializar tensores antes de realizar operações ou preenchê-los com dados reais posteriormente. Podemos criar um tensor de zeros usando a função `torch.zeros(dimensões)`, onde "dimensões" é uma lista ou tupla que especifica o tamanho de cada dimensão do tensor.
+                    Ao criar tensores, podemos especificar suas dimensões e 
+                    inicializá-los com diferentes valores. Por exemplo, 
+                    podemos criar um tensor de zeros, onde todos os elementos 
+                    do tensor têm o valor zero. Isso é útil para inicializar 
+                    tensores antes de realizar operações ou preenchê-los com 
+                    dados reais posteriormente. Podemos criar um tensor de zeros 
+                    usando a função `torch.zeros(dimensões)`, onde "dimensões" é 
+                    uma lista ou tupla que especifica o tamanho de cada dimensão 
+                    do tensor.
 
-        No entanto, é importante ter cuidado ao trabalhar com tensores e gerenciar a memória corretamente. Às vezes, ao criar ou manipular tensores, podemos gerar `"lixo de memória"`, que são áreas de memória alocadas para objetos que não estão mais em uso, mas ainda não foram liberadas. Isso pode levar a vazamentos de memória e redução do desempenho do programa. Para evitar o lixo de memória, é importante liberar os recursos adequadamente após o uso, usando métodos como "del" em tensores ou utilizando o mecanismo de coleta de lixo do Python.
-        ''')
+                    No entanto, é importante ter cuidado ao trabalhar com tensores 
+                    e gerenciar a memória corretamente. Às vezes, ao criar ou manipular 
+                    tensores, podemos gerar `"lixo de memória"`, que são áreas de memória 
+                    alocadas para objetos que não estão mais em uso, mas ainda não foram liberadas. 
+                    Isso pode levar a vazamentos de memória e redução do desempenho do programa. 
+                    Para evitar o lixo de memória, é importante liberar os recursos adequadamente 
+                    após o uso, usando métodos como "del" em tensores ou utilizando o mecanismo 
+                    de coleta de lixo do Python.
+                ''')
         a = torch.rand(2,2,3)
 
         # Mostrar código
