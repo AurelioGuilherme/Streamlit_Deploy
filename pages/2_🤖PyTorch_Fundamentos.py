@@ -16,8 +16,13 @@ with st.sidebar:
     selected = option_menu("",['0 - O que são tensores?',
                                '1 - Criando Tensores',
                                '2 - Trabalhando com as dimensões dos Tensores',
-                               '3 - Operações aritméticas com Tensores'], 
-                           menu_icon="", default_index=0)
+                               '3 - Operações aritméticas com Tensores'],
+                               icons=['bi bi-droplet',
+                                      'bi bi-droplet',
+                                      'bi bi-droplet',
+                                      'bi bi-droplet',                                      
+                                      ],
+                               default_index=0)
 
 st.write("[Conheça o meu GitHub](https://github.com/AurelioGuilherme)")
 st.write("[Documentação PyTorch](https://pytorch.org/docs/stable/index.html)")
