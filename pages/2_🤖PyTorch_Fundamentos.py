@@ -15,7 +15,8 @@ with st.sidebar:
     st.sidebar.title('PyTorch Fundamentos')
     selected = option_menu("",['0 - O que são tensores?',
                                '1 - Criando Tensores',
-                               '2 - Trabalhando com as dimensões dos Tensores'], 
+                               '2 - Trabalhando com as dimensões dos Tensores',
+                               '3 - Operações aritméticas com Tensores'], 
                            menu_icon="", default_index=0)
 
 st.write("[Conheça o meu GitHub](https://github.com/AurelioGuilherme)")
@@ -24,7 +25,7 @@ st.write("[Documentação PyTorch](https://pytorch.org/docs/stable/index.html)")
 
 def main():
     if selected == '0 - O que são tensores?':
-        st.write('# O que são tensores?')
+        st.write('# **O que são tensores?**')
         st.write("""
         O objeto tensor utilizado no framework PyTorch é focado e projetado para processamento paralelizado. 
         
@@ -194,6 +195,8 @@ def main():
             st.write(a)
 
         st.write('Por padrão o PyTorch utiliza o `FloatTensor` ao criar um objeto da classe tensor.')
+        st.write('### Ponto de atenção:')
+        st.write('**CUIDADO:** Um objeto Tensor não inicializado contém dados de lixo de memória!')
         
         b = torch.Tensor(a)
         with st.expander('Criando tensor utilizando o array'):
@@ -293,7 +296,7 @@ def main():
             st.write(c.type())
             
     elif selected == '2 - Trabalhando com as dimensões dos Tensores':
-        st.write('# Trabalhando com as dimensões dos Tensores')
+        st.write('# **Trabalhando com as dimensões dos Tensores**')
         st.write('O slicing permite extrair partes específicas de um tensor, permitindo o acesso aos elementos desejados.')
         st.write('### Size e Shape de Tensores')
         st.write('Visualizando as dimensões dos tensores com `shape` e `size()`')
@@ -501,7 +504,138 @@ print(torch.numel(t))
                         print(sliced_tensor_5d)
                     ''', language='python')
              st.write(sliced_tensor_5d)
+    if selected == '3 - Operações aritméticas com Tensores':
+        st.write('# **Operações aritméticas com Tensores**', unsafe_allow_html=True)
+        st.write('''
+                    Operações aritméticas são essenciais para a manipulação e transformação de dados, 
+                    desempenhando um papel crítico em todas as etapas do desenvolvimento de modelos.
 
+                    **Soma e Subtração:**
+                    As operações de soma e subtração são simples e frequentemente usadas em operações de 
+                    ajuste de parâmetros, atualização de gradientes e normalização de dados. Por exemplo, 
+                    ao treinar um modelo, essas operações podem ser usadas para calcular a diferença entre 
+                    a saída prevista e o valor real (erro), que é essencial para ajustar os pesos do modelo.
+
+                ''')
+        # Cria 2 tensores
+        x = torch.rand(2, 3) 
+        y = torch.rand(2, 3)
+
+        # Operação de soma
+        z1 = x + y
+        with st.expander('**Operação de soma**'):
+             st.code('''
+                        # Cria 2 tensores
+                        x = torch.rand(2, 3) 
+                        y = torch.rand(2, 3)
+
+                        # Operação de soma
+                        z1 = x + y
+                        print(z1)
+                    ''',language='python')
+             st.write('**Valor de x**')
+             st.write(x)
+             st.write('**Valor de y**')
+             st.write(y)
+             st.write('**Soma x + y**')
+             st.write(z1)
+
+        with st.expander('**Operação de soma com função `.add`**'):
+             z2 = torch.add(x, y)  
+             st.code('''
+                        # Cria 2 tensores
+                        x = torch.rand(2, 3) 
+                        y = torch.rand(2, 3)
+
+                        # Operação soma com `.add`
+                        z2 = torch.add(x, y)  
+                        print(z2)
+                    ''',language='python')
+             st.write('**Valor de x**')
+             st.write(x)
+             st.write('**Valor de y**')
+             st.write(y)
+             st.write('**Soma x + y**')
+             st.write(z2)
+        st.write('### O Parâmetro "out" em Operações de Tensores no PyTorch')  
+        st.write('''
+                    No PyTorch, o parâmetro `out` em operações de tensores 
+                    oferece uma maneira flexível de controlar onde o resultado 
+                    da operação será armazenado. Em muitas situações, podemos 
+                    querer atribuir o resultado de uma operação a uma variável 
+                    específica ou a um local de memória predefinido, e o 
+                    parâmetro "out" nos permite fazer isso de forma eficiente.
+                 ''')
+        v1 = torch.Tensor(2, 3)
+        with st.expander('**Aplicação do parêmetro `out`**'):        
+            
+            st.code('''
+                        # Criando um tensor
+                        v1 = torch.Tensor(2, 3)
+                        print(v1)
+                    ''',language='python')
+            st.write('**Tensor v1**')
+            st.write(v1)
+
+            torch.add(x, y, out = v1)
+            st.code('''
+                        # Podemos atribuir o resultado da operação a uma variável. 
+                        # Todos os métodos de operação possuem um parâmetro out para armazenar o resultado.
+                        torch.add(x, y, out = v1)
+                    ''',language='python')
+            st.write('**Tensor v1 com soma utilizando parametro `out`**')
+            st.write(v1)
+
+        st.write('### Aplicações do parâmetro Out') 
+        st.write('''
+                    **Controle de Memória:**
+                    Ao realizar operações em tensores, especialmente em modelos 
+                    de aprendizado profundo com grandes conjuntos de dados, é 
+                    crucial otimizar o uso de memória. O parâmetro "out" permite 
+                    controlar explicitamente onde o resultado da operação será 
+                    armazenado, evitando alocações de memória desnecessárias e 
+                    reduzindo a sobrecarga do sistema.
+
+                    **Reutilização de Memória:**
+                    Uma das vantagens do uso do parâmetro "out" é a capacidade de 
+                    reutilizar a memória alocada para tensores existentes. Em vez de 
+                    alocar novos tensores para armazenar o resultado de uma operação, 
+                    podemos especificar um tensor existente como destino para o resultado, 
+                    economizando recursos de memória e melhorando o desempenho geral.
+
+                    **Eficiência de Código:**
+                    Usar o parâmetro "out" também pode resultar em código mais limpo 
+                    e legível, pois evita a necessidade de atribuir o resultado da operação 
+                    a uma variável separada. Isso pode simplificar o fluxo de trabalho de 
+                    desenvolvimento e facilitar a manutenção do código ao longo do tempo.
+                    ''')
+        st.write('### Operações In-place')
+        st.write(''' 
+                    As operações in-place são aquelas que modificam diretamente o 
+                    tensor existente, sem criar um novo tensor para armazenar o 
+                    resultado. Isso é feito alterando os valores dos próprios 
+                    elementos do tensor, em vez de alocar memória para um novo 
+                    tensor. Como resultado, as operações in-place são mais eficientes 
+                    em termos de uso de memória e tempo de execução.''')
+        st.write('''**Sintaxe e Exemplos:**
+                    A sintaxe para realizar uma operação in-place em PyTorch é adicionar
+                    um sublinhado `_` ao final do nome da operação. Por exemplo, a operação
+                    de adição in-place é representada pelo método `add_()`.
+                 ''')
+        
+        
+            
+        with st.expander('**Aplicação de In-place operation**'):
+             st.code('''
+                        # In-place operation
+                        # Mesmo que: x = x + y
+                        x.add_(y)   
+                    ''',language='python')
+             st.write('**Mesmo que: x = x + y**')
+             st.write(x.add_(y))
+                        
+
+          
 
 if __name__ == "__main__":
     main()
