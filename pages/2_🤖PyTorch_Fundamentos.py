@@ -111,7 +111,7 @@ def main():
         t1 = torch.Tensor(lista_python)  
 
         # Mostrar o código
-        with st.expander("Cria um tensor 2x3 a partir de uma lista Python"):
+        with st.expander("**Cria um tensor 2x3 a partir de uma lista Python**"):
             st.code("""
                         import torch
 
@@ -120,13 +120,14 @@ def main():
                         t1 = torch.Tensor(lista_python)
                         print(t1)
                     """, language="python")
+            st.write('**Valor do tensor t1 criado com uma lista python**')
             st.write(t1)
 
         array_numpy = np.array([[9,6,1], [5,3,2]])
         t2 = torch.Tensor(array_numpy)
 
         # Mostrar código
-        with st.expander('Cria um tensor 2x3 a partir de array numpy'):
+        with st.expander('**Cria um tensor 2x3 a partir de array numpy**'):
             st.code('''
                         import torch
                         import numpy as np
@@ -136,7 +137,90 @@ def main():
                         t2 = torch.Tensor(array_numpy)
                         print(t2)                    
                     ''', language='python')
+            st.write('**Valor do tensor t2 criado com uma array numpy**')
             st.write(t2)
+
+        with st.expander('**Criando um tensor com range de valores com o método `.arange`**'):
+            st.write('É possivel criar um Tensor com um range de valores com o `.arange`')
+            v = torch.arange(5)
+            st.code('''
+                       # Criando tensores com range de valores
+                       v = torch.arange(5)
+                       print(v)
+                   ''',language='python')
+            st.write('**Valor do Tensor v de 1 dimensão**')
+            st.write(v)
+            st.write('''O tensor criado é em tensor em 1 dimensão, 
+                        para mudar a dimensão podemos utilizar os metodos`.reshape()` e o `.view()` .''')
+            st.code('''
+                       #Criando tensor em 1 dimensão com arange
+                       v = torch.arange(9)
+                       print(v)
+                   ''',language='python')
+            v = torch.arange(9)
+            st.write('**Valor tensor v em 1 dimensão**')
+            st.write(v)
+            st.code('''
+                        # Alterando o tensor para 2 dimensões
+                        v = v.view(3,3)
+                        print(v)
+                    ''',language='python')
+            v = v.view(3,3)
+            st.write('**Valor do tensor v em 2 dimensões**')
+            st.write(v)
+        with st.expander('**Criando um tensor Linear com `.linspace()`**'):
+            st.write('''
+                       O `torch.linspace()` é particularmente útil
+                       para gerar tensores lineares com valores igualmente espaçados ao 
+                       longo de um intervalo especificado.
+
+                        Há três argumentos principais: o valor inicial do intervalo,
+                        o valor final do intervalo e o número de elementos desejados no tensor 
+                     ''')
+            v = torch.linspace(1, 10, steps=10)
+            st.code(''' 
+                       # Cria um tensor com 10 pontos lineares de (1, 10)
+                       v = torch.linspace(1, 10, steps = 10)
+
+                     ''',language='python')
+            st.write('**Valor do tensor linear v**')
+            st.write(v)
+
+        with st.expander('**Criando um tensor em escala logarítimica**'):
+            st.write('''
+                        Ao usar `torch.logspace()`, fornecemos três argumentos principais: 
+                        o expoente inicial, o expoente final e o número de elementos desejados no 
+                        tensor. O PyTorch então retorna um tensor com valores distribuídos de forma 
+                        logarítmica entre 10^inicio e 10^fim, inclusive.
+                   ''')
+            v = torch.logspace(start = -1, end = 10, steps = 5 )
+            st.code(''' 
+                        # Criando tensor em escala logarítimica    
+                        v = torch.logspace(start = -1, end = 10, steps = 5 )
+
+                    ''',language='python')
+            st.write('**Valor do tensor logarítimico**') 
+            st.write(v)
+
+        with st.expander('**Criando um tensor com valores absolutos**'):
+            st.write('''
+                       Para criar um tensor com valores absolutos em PyTorch,
+                       você pode usar a função `torch.abs()` para calcular os valores 
+                       absolutos de um tensor existente ou pode criar um tensor com 
+                       valores absolutos diretamente.''')
+            f = torch.FloatTensor([-1, -2, 3])
+            r = torch.abs(f)
+            st.code('''
+                        # Criando um tensor com valores negátivos    
+                        f = torch.FloatTensor([-1, -2, 3])
+                    
+                        # Convertendo o tensor para valores absolutos.
+                        r = torch.abs(f)
+                        print(r)
+                    ''',language='python')
+            st.write('**Valor do tensor r com valores absolutos**')
+            st.write(r)
+        
 
         st.write('### Tipos de Tensores no PyTorch')
         st.write('''
@@ -387,16 +471,16 @@ def main():
         # Mostrar código
         with st.expander('Mostrar código'):
             st.code('''
-import torch
-                                         
-# Cria um tensor com valores randômicos
-torch.manual_seed(777)
-x = torch.randint(0, 10, size = (2, 3, 4))                   
-
-# Alterando o size do tensor (mas sem mudar o tensor original)
-print(f"Altera de '{x.size()}' para '{x.view(2, 2, 6).size()}'\n")     
-print(x.view(2, 2, 6))                                                     
-            ''', language='python')
+                       import torch
+                                                                
+                       # Cria um tensor com valores randômicos
+                       torch.manual_seed(777)
+                       x = torch.randint(0, 10, size = (2, 3, 4))                   
+                       
+                       # Alterando o size do tensor (mas sem mudar o tensor original)
+                       print(f"Altera de '{x.size()}' para '{x.view(2, 2, 6).size()}'\n")     
+                       print(x.view(2, 2, 6))                                                     
+                    ''', language='python')
             st.write(f"Altera de '{x.size()}' para '{x.view(2, 2, 6).size()}'\n")
             st.write(x.view(2, 2, 6))
 
@@ -404,14 +488,14 @@ print(x.view(2, 2, 6))
         t = torch.arange(60).view(3, 4, 5)
         with st.expander('Mostrar código:'):
             st.code('''
-import torch
+                        import torch
 
-t = torch.arange(60).view(3, 4, 5)
-print(t)
-print(t.shape)
-print(t.size())
-print(torch.numel(t))
-''', language= 'python')
+                        t = torch.arange(60).view(3, 4, 5)
+                        print(t)
+                        print(t.shape)
+                        print(t.size())
+                        print(torch.numel(t))
+                    ''', language= 'python')
             st.write(t) 
             st.write(t.shape) 
             st.write(t.size()) 
@@ -603,6 +687,40 @@ print(torch.numel(t))
              st.write(y)
              st.write('**Soma x + y**')
              st.write(z2)
+
+        with st.expander('**Somando valores a todos os elementos do tensor com `.add`**'):
+            r = torch.add(x, 10)
+            st.code('''
+                        # Somando o valor 10 aos elementos do objeto Tensor.
+                        r = torch.add(x, 10)
+                        print(r)
+
+                    ''', language='python')
+            st.write('**Valor do tensor r após soma**')
+            st.write(r)
+        
+        with st.expander('**Subtração com o método `.sub()`**'):
+            st.write('''
+                       As formas anteriores para a soma como "x + y" também funcionam para
+                       o caso da subtração "x-y".
+                       O método `.sub()` também é possivel utilizar de forma in-place e com parâmetro out.
+                    ''')
+            # Criando um tensor
+            x = torch.tensor([1, 2, 3])
+            
+            # Subtraindo um valor escalar
+            y = torch.sub(x, 1)
+            st.code('''
+                        # Subtraindo valores
+                        x = torch.Tensor([1,2,3])
+                        y = torch.sub(x, 1)
+
+                    ''',language='python')
+            st.write('**Resultado da subtração**')
+            st.write(y)
+            
+            
+
         st.write('### O Parâmetro "out" em Operações de Tensores no PyTorch')  
         st.write('''
                     No PyTorch, o parâmetro `out` em operações de tensores 
@@ -655,6 +773,7 @@ print(torch.numel(t))
                     a uma variável separada. Isso pode simplificar o fluxo de trabalho de 
                     desenvolvimento e facilitar a manutenção do código ao longo do tempo.
                     ''')
+        
         st.write('### Operações In-place')
         st.write(''' 
                     As operações in-place são aquelas que modificam diretamente o 
@@ -679,6 +798,179 @@ print(torch.numel(t))
                     ''',language='python')
              st.write('**Mesmo que: x = x + y**')
              st.write(x.add_(y))
+
+        st.write('### Somando valores pela indexação')
+        st.write('Também é possivel efetuar operções pela indexação semelhante ao numpy') 
+        x = torch.rand(2, 3)                     
+        x[:, 0] = 0
+        st.code('''
+                    x[:, 1]                          
+                    x[:, 0] = 0
+                    print(x)
+                ''',language='python')
+        st.write(x)
+
+        st.write('### Mais operações - Estatística')
+        with st.expander('**Soma cumulativa `torch.cumsum()`**'):
+            st.write('''
+                        O método `.cumsum()` é a função que calcula a soma cumulativa ao longo de um eixo 
+                        específico do tensor, adicionando os elementos do tensor sequencialmente. 
+                        Isso é útil em uma variedade de cenários, incluindo processamento de sinais, 
+                        análise de séries temporais e em algoritmos de otimização.
+                     
+                        Ao usar o método `cumsum()` em um tensor, podemos controlar o eixo ao longo do 
+                        qual desejamos calcular a soma cumulativa. Por padrão, a soma cumulativa é 
+                        realizada ao longo do primeiro eixo do tensor, mas podemos especificar o 
+                        eixo desejado como um parâmetro.
+                    ''')
+            x = torch.Tensor([[1,2,3],
+                              [4,5,6],
+                              [7,8,9]])
+            st.code(''' 
+                        # Criando um tensor de 2 dimensões
+                        x = torch.Tensor([[1,2,3],[4,5,6],[7,8,9]])
+                        print(x)
+                    ''',language='python')
+            st.write('**Valor do tensor x**')
+            st.write(x)
+            
+            r = torch.cumsum(x, dim=0)
+            st.code(''' 
+                        # Soma acumulada por coluna
+                        r = torch.cumsum(x, dim = 0)
+                        print(r)
+                    ''', language='python')
+            st.write('**Soma acumulada por coluna**')
+            st.write(r)
+
+            r = torch.cumsum(x, dim=1)
+            st.code(''' 
+                        # Soma acumulada por linha
+                        r = torch.cumsum(x, dim = 1)
+                        print(r)
+                    ''', language='python')
+            st.write('**Soma acumulada por linha**')
+            st.write(r)
+
+        with st.expander('**Média `torch.mean()`**'):
+             st.write('''
+                        Ao utilizar o método `torch.mean()` em um tensor, o PyTorch calcula a 
+                        média de todos os elementos do tensor ou ao longo de um eixo especificado. 
+                        Se nenhum eixo for especificado, a média de todos os elementos do 
+                        tensor é calculada. No entanto, se um eixo for fornecido, o cálculo da média 
+                        será realizado ao longo desse eixo.
+                     ''')
+             r = torch.mean(x)
+             st.code('''
+                        import torch
+                        # Cria 1 tensor de 2 dimensões
+                        x = torch.Tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+                     
+                        # Média dos valores do Tensor
+                        r = torch.mean(x)       
+                        print(r)
+
+                    ''',language='python')
+             st.write('**Média dos valores do Tensor**')
+             st.write(r)
+
+             r = torch.mean(x, 0)
+             st.code('''
+                        # Média por coluna
+                        r = torch.mean(x, 0) 
+                        print(r)
+                     ''',language='python')
+             st.write('**Média dos valores do Tensor por coluna**')
+             st.write(r)
+
+             r = torch.mean(x, 1)
+             st.code('''
+                        # Média por linha
+                        r = torch.mean(x, 1) 
+                        print(r)
+                     ''',language='python')
+             st.write('**Média dos valores do Tensor por linha**')
+             st.write(r)
+        
+        with st.expander('**Desvio padrão `torch.std()`**'):
+             st.write('''
+                        O desvio padrão é uma medida estatística que indica a dispersão 
+                        dos valores em torno da média de um conjunto de dados. No PyTorch, 
+                        o cálculo do desvio padrão de tensores é facilitado pelo método `.std()`,
+                         que retorna o desvio padrão dos elementos do tensor.
+
+                        Ao utilizar o método `.std()` em um tensor em PyTorch, podemos calcular 
+                        rapidamente o desvio padrão de todos os elementos do tensor ou ao longo 
+                        de um eixo específico em tensores multidimensionais. Se nenhum eixo for 
+                        especificado, o desvio padrão será calculado para todos os elementos do tensor.
+                     ''')
+             st.code('''
+                        import torch
+                        # Cria 1 tensor de 2 dimensões
+                        x = torch.Tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+                       
+                        # Desvio padrão do tensor
+                        print(x.std())
+                     
+                        # Desvio padrão por linha
+                        print(x.std(dim =1))
+                    ''',language='python')
+             st.write('**Desvio padrão do tensor**')
+             st.write(x.std())
+             st.write('**Desvio padrão do tensor por linha**')
+             st.write(x.std(dim = 1))
+
+        with st.expander('**Soma dos elementos do tensor `torch.sum()`**'):
+            st.write('''
+                        Ao usar o método .sum() em um tensor, podemos controlar o eixo ao 
+                        longo do qual desejamos calcular a soma. Por padrão, a soma é realizada 
+                        em todos os elementos do tensor, mas podemos especificar o eixo 
+                        desejado como um parâmetro.''')
+            st.code('''
+                        import torch
+                        # Cria 1 tensor de 2 dimensões
+                        x = torch.Tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+                    
+                        # Soma total
+                        r = torch.sum(x)         
+                        print(r)
+                    
+                        # Soma por coluna
+                        r = torch.sum(x, 0)         
+                        print(r)
+                    
+                        # Soma por linha
+                        r = torch.sum(x, 1)         
+                        print(r)
+                    ''',language='python')
+            st.write('**Soma total**')
+            st.write(torch.sum(x))
+            st.write('**Soma por coluna**')
+            st.write(torch.sum(x,0))
+            st.write('**Soma por linha**')
+            st.write(torch.sum(x,1))
+
+        st.write('## **Multiplicação de Matrizes**')
+        st.write('''
+                    Vamos explorar três tipos fundamentais de multiplicação de 
+                    matrizes em PyTorch: multiplicação elemento a elemento (element-wise), 
+                    produto escalar (dot product) e produto vetorial (cross product).
+               ''')
+        st.write('### Multiplicação Element-wise em PyTorch:')
+        st.write('''
+                 A multiplicação elemento a elemento em PyTorch é realizada diretamente 
+                 usando o operador de multiplicação (*) ou pelo método `torch.mul()`. Esta operação é aplicada entre 
+                 dois tensores de mesma forma e resulta em um novo tensor com os elementos 
+                 multiplicados elemento a elemento. A multiplicação elemento a elemento é útil 
+                 em muitas aplicações, incluindo operações de ativação em redes neurais e operações 
+                 ponto a ponto em processamento de sinais.''')
+        st.image('imagens/elementwise.jpg')
+       # imagens\elementwise.jpg
+
+             
+             
+            
+        
                         
 
           
