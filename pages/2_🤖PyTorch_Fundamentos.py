@@ -965,15 +965,23 @@ def main():
                  em muitas aplicações, incluindo operações de ativação em redes neurais e operações 
                  ponto a ponto em processamento de sinais.''')
         st.image('imagens/elementwise.jpg')
-       
-
-             
-             
-            
         
-                        
+        with st.expander('**Multiplicação Element-wise**'):
+             x = torch.Tensor([[1,2],[3,4]])
+             y = torch.Tensor([[5,2],[4,5]])
+             r = torch.mul(x, y)
+             st.code('''
+                        # Criando os tensores
+                        x = torch.Tensor([[1,2],[3,4]])
+                        y = torch.Tensor([[5,2],[4,5]])
+                     
+                        # Multiplicando tensor x * y    
+                        r = torch.mul(x, y) 
+                        print(r)
+                    ''',language='python')
+             st.write('**Resultado da multiplicação tensor x*y**')
+             st.write(r)
 
-          
-
+        
 if __name__ == "__main__":
     main()
