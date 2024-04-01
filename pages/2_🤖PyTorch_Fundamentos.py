@@ -965,7 +965,7 @@ def main():
                  em muitas aplicações, incluindo operações de ativação em redes neurais e operações 
                  ponto a ponto em processamento de sinais.''')
         st.image('imagens/elementwise.jpg')
-       # imagens\elementwise.jpg
+       
 
              
              
