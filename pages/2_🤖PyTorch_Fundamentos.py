@@ -979,9 +979,109 @@ def main():
                         r = torch.mul(x, y) 
                         print(r)
                     ''',language='python')
-             st.write('**Resultado da multiplicação tensor x*y**')
+             st.write('**Resultado da multiplicação tensor x*y (Element-Wise)**')
+             st.write(r)
+        st.write('### Multiplicação Dot Product')
+        st.write('''
+                    O produto escalar ou multiplicação Dot Product em PyTorch é realizado usando a função `torch.dot()`. 
+                    Esta função calcula o produto escalar entre dois tensores unidimensionais 
+                    (vetores), multiplicando seus elementos correspondentes e somando-os. 
+                    O produto escalar é comumente usado em cálculos de similaridade, projeções 
+                    e otimização de modelos de aprendizado de máquina.
+                ''')
+        st.image('imagens/dotproduct.png')
+        with st.expander('**Multiplicação Dot Product**'):
+             t1 = torch.Tensor([4,2])
+             t2 = torch.Tensor([3,1])
+             r = torch.dot(t1, t2)
+             st.code('''
+                        # Criando dois tensores
+                        t1 = torch.Tensor([4,2])
+                        t2 = torch.Tensor([3,1])
+
+                        # Multiplicando os tensores.
+                        r = torch.dot(t1, t2)
+                        print(r)   
+
+                        ''', language='python')
+             st.write('**Produto escalar t1 * t2 (Dot Product)**')
              st.write(r)
 
+        st.write('### Multiplicação Cross Product')
+        st.write('''A multiplicação Cross product é um produto de uma  multiplicação cruzada
+                    onde podemos multiplicar matrizes e vetores com dimensões diferentes.''')
+
+        with st.expander('**Multiplicação de Matriz por Vetor `torch.mv`**'):
+             st.write('Nesta operação, multiplicamos uma matriz por um vetor para obter um novo vetor.')
+             mat = torch.randn(2, 4)
+             vec = torch.randn(4)
+             st.code('''
+                        # Criando Matriz e Tensor
+                        mat = torch.randn(2, 4)
+                        vec = torch.randn(4)
+                        print(mat)
+                        print(vec)
+                     
+                        #Multiplicando a matriz e vetor
+                        r = torch.mv(mat, vec)
+                        print(r)
+                    ''',language='python')
+
+             st.write('**Matriz**')
+             st.write(mat)
+             st.write('**Vetor**')
+             st.write(vec)
+
+             st.write('**Multiplicação entre Matriz e Vetor**')
+             r = torch.mv(mat, vec)
+             st.write(r)
+             st.write('Também é possivel efetuar uma soma ao multiplicarmos uma Matriz x Vetor `torch.addmv()`')
+             st.code('''
+                        # Multiplicação entre Matriz e Vetor e ao resultado somamos outro vetor.
+                        V = torch.randn(2)
+                        mat = torch.randn(2, 3)
+                        vec = torch.randn(3)
+                        
+                        # Vetor + (Matriz X Vetor)
+                        r = torch.addmv(V, mat, vec)
+                        print(r)
+                        
+                    ''',language='python')
+             V = torch.randn(2)
+             mat = torch.randn(2, 3)
+             vec = torch.randn(3)
+             r = torch.addmv(V, mat, vec)
+             st.write('**Vetor + (Matriz X Vetor)**')
+             st.write(r)
+
+        with st.expander('**Multiplicação entre matrizes - Cross Product `torch.cross`**'):
+             st.write('''Essa função aceita dois tensores com a mesma 
+                      forma e calcula o produto cruzado entre eles, produzindo um novo tensor''')
+             st.code('''
+                        # # Multiplicação entre Matrizes com produto cruzado (cross product)
+                        # Matriz X Matriz
+                        
+                        m1 = torch.rand(3, 5)
+                        m2 = torch.rand(3, 5)
+                        r = torch.cross(m1, m2)
+                     
+                        # Resultado Size 3x5
+                        print(r)
+                        print(r.size())
+
+                    ''',language='python')
+             m1 = torch.rand(3, 5)
+             m2 = torch.rand(3, 5)
+             r = torch.cross(m1, m2)
+             st.write('**Tensor 1**')   
+             st.write(m1)
+             st.write('**Tensor 2**') 
+             st.write(m2)
+             st.write('**Resultado Multiplicação Cross Product**')
+             st.write(r)
+             
+
+            
         
 if __name__ == "__main__":
     main()
