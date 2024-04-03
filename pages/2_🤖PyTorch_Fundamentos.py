@@ -3,6 +3,7 @@ import torch
 import pytorch_lightning as pl
 from streamlit_option_menu import option_menu
 import numpy as np
+import pandas as pd
 
 
 PAGE_TITLE = 'PyTorch Fundamentos 🤖'
@@ -286,7 +287,7 @@ def main():
         d = torch.ones_like(a)
 
         # Mostrar código
-        with st.expander("Criando um tensor de 1's semelhante (like) ao tensor de zeros (mesmas dimensões)"):
+        with st.expander("**Criando um tensor de 1's semelhante (like) ao tensor de zeros (mesmas dimensões) `torch.ones_like()`**"):
             st.code('''
                         import torch
 
@@ -295,6 +296,30 @@ def main():
                         print(d)                    
                     ''', language='python')
             st.write(d, unsafe_allow_html=True)
+        
+        with st.expander('**Tensor Diagonal `torch.diag()`**'):
+             st.write('''Uma das operações comuns em álgebra linear é a criação de uma matriz diagonal, 
+                      na qual todos os elementos fora da diagonal principal são zeros e os elementos 
+                      na diagonal principal são iguais. Em PyTorch, podemos facilmente criar um tensor 
+                      diagonal de uns utilizando a função `torch.diag()`.''')
+             st.code('''
+                        # Criando tensores de 1's  
+                        v = torch.ones(3)
+                        print(v)
+
+                        # Transpondo para um Tensor de Size 3x3
+                        r = torch.diag(v)
+                        print(r)
+                ''',language='python')
+             v = torch.ones(3)
+             st.write("**Tensor de 1's**")
+             st.write(v)
+             r = torch.diag(v)
+             st.write('**Vetor Diagonal transposto**')
+             st.write(r.numpy())
+             
+
+
 
         st.write('### Criando tensores de diferentes tipos')
         st.write("""
@@ -1083,6 +1108,14 @@ def main():
 
     if selected == '4 - Concatenação, Expansão, Junção, Chunk, Squeeze':
          st.write('# Manipulação de Tensores.')
+         st.write('Existem diversas formas de manipular e tensores:')
+         with st.expander('**Expansão`torch.expand()`**'):
+              st.write('''A expansão, também conhecida como broadcasting, é uma operação fundamental
+                        em PyTorch que permite realizar operações entre tensores de diferentes formas, 
+                       ajustando automaticamente as dimensões dos tensores menores para que sejam 
+                       compatíveis com as dimensões dos tensores maiores. Essa operação é especialmente 
+                       útil quando precisamos realizar operações entre tensores de formas diferentes sem 
+                       precisar criar cópias adicionais dos dados.''')
              
 
             
