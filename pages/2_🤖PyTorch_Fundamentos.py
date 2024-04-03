@@ -16,12 +16,13 @@ with st.sidebar:
     selected = option_menu("",['0 - O que são tensores?',
                                '1 - Criando Tensores',
                                '2 - Trabalhando com as dimensões dos Tensores',
-                               '3 - Operações aritméticas com Tensores'],
+                               '3 - Operações aritméticas com Tensores',
+                               '4 - Concatenação, Expansão, Junção, Chunk, Squeeze'],
                                icons=['bi bi-droplet',
                                       'bi bi-droplet',
                                       'bi bi-droplet',
-                                      'bi bi-droplet',                                      
-                                      ],
+                                      'bi bi-droplet',
+                                      'bi bi-droplet'],
                                default_index=0)
 
 st.write("[Conheça o meu GitHub](https://github.com/AurelioGuilherme)")
@@ -1079,6 +1080,9 @@ def main():
              st.write(m2)
              st.write('**Resultado Multiplicação Cross Product**')
              st.write(r)
+
+    if selected == '4 - Concatenação, Expansão, Junção, Chunk, Squeeze':
+         st.write('# Manipulação de Tensores.')
              
 
             
