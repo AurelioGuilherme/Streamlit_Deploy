@@ -1116,6 +1116,57 @@ def main():
                        compatíveis com as dimensões dos tensores maiores. Essa operação é especialmente 
                        útil quando precisamos realizar operações entre tensores de formas diferentes sem 
                        precisar criar cópias adicionais dos dados.''')
+              
+              x = torch.tensor([[1],[2],[3]])
+              st.code(''' 
+                        # Criando um tensor - size 3x1
+                        x = torch.tensor([[1],[2],[3]])
+                        print(x)
+                      ''',language='python')
+              st.write('**Tensor - Size 3x1**')
+              st.write(x.numpy())
+
+              st.code('''
+                      # Expandindo um tensor
+                      x.expand(3, 4)
+                      ''',language='python')
+              st.write(x.expand(3, 4).numpy())
+
+         with st.expander('**Concatenação `torch.cat()`**'):
+              st.write(''' A concatenação é uma operação que permite combinar tensores
+                        ao longo de um eixo específico. Isso é útil para combinar 
+                       dados de diferentes fontes ou para aumentar o tamanho de um tensor''')
+              st.code('''
+                        # Criando tensor - Size 5x3
+                        x = torch.randn(5, 3).type(torch.FloatTensor)
+                        print(x)
+                        ''',language='python')
+              x = torch.randn(5, 3).type(torch.FloatTensor)
+              st.write('**Tensor x - Size 5x3**')
+              st.write(x.numpy())
+              
+              st.code('''
+                        # Concatenação por linha
+                        x_row = torch.cat((x, x, x), 0)
+                        print(x_row)  
+                      ''',language='python')
+              st.write('**Concatenação por linha**')  
+              st.write(torch.cat((x, x, x), 0).numpy())
+              
+              st.code('''
+                        # Concatenação por coluna
+                        x_col = torch.cat((x, x, x), 1)
+                        print(x_col)  
+                      ''',language='python')
+              st.write('**Concatenação por coluna**')  
+              st.write(torch.cat((x, x, x), 1).numpy())
+
+         with st.expander('**Junção (Stacking) `torch.stack()`**'):
+              st.write('''A junção é uma operação que permite empilhar tensores ao longo 
+                       de um novo eixo. Isso é útil para combinar múltiplos tensores em 
+                       um único tensor multidimensional. ''')
+                                  
+              
              
 
             
