@@ -9,23 +9,26 @@ from functions import helpers
 
 PAGE_TITLE = 'PyTorch Fundamentos 🤖'
 PAGE_ICON = "🤖"
+MENU_LIST =['0 - O que são tensores?',
+            '1 - Criando Tensores',
+            '2 - Trabalhando com as dimensões dos Tensores',
+            '3 - Operações aritméticas com Tensores',
+            '4 - Concatenação, Expansão, Junção, Chunk, Squeeze']
+
 st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON)
+ICON_LIST = []
+for i in MENU_LIST:
+    ICON_LIST.append('bi bi-droplet')
 
 # Menu lateral
 with st.sidebar:
     st.image('imagens/pytorch-logo.png',width=200)
     st.sidebar.title('PyTorch Fundamentos')
-    selected = option_menu("",['0 - O que são tensores?',
-                               '1 - Criando Tensores',
-                               '2 - Trabalhando com as dimensões dos Tensores',
-                               '3 - Operações aritméticas com Tensores',
-                               '4 - Concatenação, Expansão, Junção, Chunk, Squeeze'],
-                               icons=['bi bi-droplet',
-                                      'bi bi-droplet',
-                                      'bi bi-droplet',
-                                      'bi bi-droplet',
-                                      'bi bi-droplet'],
-                               default_index=0)
+    selected = option_menu("",
+                           MENU_LIST,
+                           icons=ICON_LIST,
+                           default_index=0)
+
 
 st.write("[Conheça o meu GitHub](https://github.com/AurelioGuilherme)")
 st.write("[Documentação PyTorch](https://pytorch.org/docs/stable/index.html)")
@@ -108,7 +111,7 @@ def main():
                     para linhas e outra para colunas. 
                 """)
 
-        st.write('Você pode criar tensores a partir de listas ou matrizes numpy e vice-versa utilizando a função `.Tensor()`')
+        st.write('Você pode criar tensores a partir de listas ou matrizes numpy e vice-versa utilizando a função `torch.Tensor()`')
         st.write('Esta função cria um objeto do tipo tensor')
         
         lista_python = [[1,2,3], [4,5,6]]

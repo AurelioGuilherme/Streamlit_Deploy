@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 
 
+
 def code_python(string):
     st.code(string,language='python')
 
@@ -16,3 +17,6 @@ def print_tensor(tensor, name=None, numpy=True):
     else:
         st.write(f'**Tensor: {name}**',tensor,'**Size**',tensor.size())
 
+
+    
+        
