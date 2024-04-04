@@ -16,15 +16,22 @@ linkedin_pic = current_dir / 'assets' / 'linkedin.jpg'
 PAGE_TITLE = 'Meu Porfólio de Projetos 🎖️'
 PAGE_ICON = "🎖️"
 NAME = 'Meu Porfólio'
-DESCRIPTION = '''Bem-vindo ao meu portfólio de projetos em ciência de dados! Aqui você encontrará uma coleção de projetos nos quais explorei e apliquei técnicas de machine learning, deep learning e engenharia de dados para resolver problemas do mundo real.
-
-Navegue pelos meus projetos para explorar exemplos de minha abordagem analítica e criativa para resolver problemas em diversas áreas, desde predição de séries temporais até reconhecimento de padrões em imagens.
-
-Se você está interessado em colaborar ou discutir oportunidades de trabalho, não hesite em entrar em contato. Estou sempre aberto a novas ideias e desafios!
-
-'''
-
 EMAIL = 'aurelio_gss@hotmail.com'
+
+DESCRIPTION = '''
+                Bem-vindo ao meu portfólio de projetos em ciência de dados! 
+                Aqui você encontrará uma coleção de projetos nos quais explorei e 
+                apliquei técnicas de machine learning, deep learning e engenharia de 
+                dados para resolver problemas do mundo real.
+
+                Navegue pelos meus projetos para explorar exemplos de minha abordagem 
+                analítica e criativa para resolver problemas em diversas áreas, desde 
+                predição de séries temporais até reconhecimento de padrões em imagens.'''
+DESCRIPTION_2 = ('''
+                  Se você está interessado em colaborar ou discutir oportunidades de trabalho, 
+                  não hesite em entrar em contato. Estou sempre aberto a novas ideias e desafios!
+                ''')
+
 SOCIAL_MEDIA = {"LinkedIn": "https://www.linkedin.com/in/aurelio-guilherme-silva/",
                 "GitHub": "https://github.com/AurelioGuilherme",
                 'Instagram': "https://www.instagram.com/aurelio_gss/",
@@ -52,19 +59,35 @@ with col1:
 with col2:
     st.write(DESCRIPTION)
     st.download_button(
-        label=" 📄 Download Resume",
+        label=" 📄 Download CV",
         data=PDFbyte,
         file_name=resume_file.name,
         mime="application/octet-stream",
     )
     st.write("📫", EMAIL)
 
+def balloon_text(text, background_color="#f0f0f0", text_color="black"):
+    balloon_style = f"""
+        background-color: {background_color};
+        color: {text_color};
+        padding: 10px;
+        border-radius: 10px;
+        border: 2px solid #888888;
+        box-shadow: 2px 2px 5px #888888;
+    """
+    st.markdown(f'<div style="{balloon_style}">{text}</div>', unsafe_allow_html=True)
+
+#st.write('')
+
+
 
 # --- SOCIAL LINKS ---
-st.write('\n')
 cols = st.columns(len(SOCIAL_MEDIA))
 for index, (platform, link) in enumerate(SOCIAL_MEDIA.items()):
     cols[index].write(f"[{platform}]({link})")
+
+balloon_text(DESCRIPTION_2, background_color="#FFA664", text_color="black")
+st.write('---')
 
 # --- SKILLS ---
 st.write('\n')
