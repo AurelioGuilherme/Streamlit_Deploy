@@ -2,7 +2,7 @@ import streamlit as st
 import torch
 
 PAGE_TITLE = 'Modelos de Deep Learning  🧠 '
-PAGE_ICON = " 🧠 "
+PAGE_ICON = "🧠"
 st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON)
 
 st.title('Modelos de Deep Learning')
