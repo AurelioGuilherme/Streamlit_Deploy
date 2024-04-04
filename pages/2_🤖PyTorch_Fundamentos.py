@@ -1109,7 +1109,7 @@ def main():
     if selected == '4 - Concatenação, Expansão, Junção, Chunk, Squeeze':
          st.write('# Manipulação de Tensores.')
          st.write('Existem diversas formas de manipular e tensores:')
-         with st.expander('**Expansão`torch.expand()`**'):
+         with st.expander('**Expansão: `torch.expand()`**'):
               st.write('''A expansão, também conhecida como broadcasting, é uma operação fundamental
                         em PyTorch que permite realizar operações entre tensores de diferentes formas, 
                        ajustando automaticamente as dimensões dos tensores menores para que sejam 
@@ -1132,7 +1132,7 @@ def main():
                       ''',language='python')
               st.write(x.expand(3, 4).numpy())
 
-         with st.expander('**Concatenação `torch.cat()`**'):
+         with st.expander('**Concatenação: `torch.cat()`**'):
               st.write(''' A concatenação é uma operação que permite combinar tensores
                         ao longo de um eixo específico. Isso é útil para combinar 
                        dados de diferentes fontes ou para aumentar o tamanho de um tensor''')
@@ -1161,10 +1161,90 @@ def main():
               st.write('**Concatenação por coluna**')  
               st.write(torch.cat((x, x, x), 1).numpy())
 
-         with st.expander('**Junção (Stacking) `torch.stack()`**'):
+         with st.expander('**Junção (Stacking): `torch.stack()`**'):
               st.write('''A junção é uma operação que permite empilhar tensores ao longo 
                        de um novo eixo. Isso é útil para combinar múltiplos tensores em 
                        um único tensor multidimensional. ''')
+              st.code('''
+                        # Criando um tensor com 9 elementos - 1 Dimensão
+                        v = torch.arange(9)
+                        
+                        # Alterando as dimensões do tensor para 3x3
+                        v = v.view(3, 3)
+                        print(v)
+                    ''',language='python')
+              v = torch.arange(9)
+              st.write('**Tensor 3x3 - range 0 a 8**')
+              st.write(v.view(3,3).numpy())
+              st.code('''
+                        # Stack
+                        v2 = torch.stack((v, v, v))
+                        print(v2)
+                      ''',language='python')
+              st.write('**Tensor empilhado "Stack"**')
+              st.write(torch.stack((v,v,v)).numpy())
+         
+         with st.expander('**Chunk ou split: `torch.chunk()`**'):
+              st.write('''A operação de chunk divide um tensor em um número específico de 
+                       partes ao longo de um determinado eixo. Isso pode ser útil para dividir 
+                       grandes conjuntos de dados em lotes menores para processamento em lotes.
+                       ''')
+              st.code('''
+                        # Criando o Tensor
+                        tensor = torch.tensor([[1, 2, 3, 4, 5, 6]])
+                        print(tensor)
+                ''',language='python')
+              tensor = torch.tensor([[1, 2, 3, 4, 5, 6]])
+              st.write('**Tensor - 1x6**')
+              st.write(tensor.numpy())
+              st.write('**Tensor splitado - 2 tensores 1x3**')
+              st.write(torch.chunk(tensor, chunks=2, dim=1))
+         
+         with st.expander('**Squeeze e Unsqueeze: `torch.squeeze()` e `torch.unsqueeze()`**'):
+              st.write('''Squeeze remove dimensões de tamanho 1 de um tensor, enquanto unsqueeze 
+                       adiciona dimensões de tamanho 1 a um tensor. Essas operações são úteis para 
+                       ajustar a forma de um tensor para corresponder às expectativas de uma 
+                       determinada operação.''')
+              st.write('### Squeeze')
+              st.code('''
+                        # Criando o Tensor size 2x1
+                        tensor = torch.ones(2,1)
+
+                        ''',language='python')
+              st.write('**Tensor size 2x1x2x1**')
+              tensor = torch.ones(2,1,2,1)
+              st.write(tensor.numpy())
+              st.write("Dimensões do tensor após squeeze:", tensor.numpy().shape)
+              st.write('**Tensor após squeeze**')
+              st.write(torch.squeeze(tensor).numpy())
+              st.write('''Neste exemplo, o tensor x possui três dimensões, com a última dimensão 
+                       tendo tamanho 1. Após a aplicação de squeeze na última dimensão, essa dimensão 
+                       de tamanho 1 é removida, resultando em um tensor de duas dimensões.''')
+              st.write('**Squeeze pela dimensão 1: Size 2x2x1**')
+              st.write(torch.squeeze(tensor,1).numpy())
+              st.write("Dimensões do tensor após squeeze:", torch.squeeze(tensor,1).numpy().shape)
+              st.write('---')
+
+              st.write('### Unsqueeze')
+              st.write('''Neste exemplo, o tensor x possui duas dimensões. Após a aplicação de unsqueeze
+                        na posição 0, uma nova dimensão de tamanho 1 é adicionada, resultando em um tensor 
+                       tridimensional.''')
+              
+              st.code('''
+                        # Criando um tensor de dimensões mais altas (2 dimensões)
+                        x = torch.tensor([[1, 2], [3, 4]])
+                        print(x)
+                     ''',language='python')
+              x = torch.tensor([[1, 2], [3, 4]])
+              y = torch.unsqueeze(x, dim=0)
+              st.write('**Tensor original**')
+              st.write(x)
+              st.write("Dimensões do tensor original:", x.shape)
+              st.write('**Tensor após unsqueeze:**')
+              st.write(y)
+              st.write("Dimensões do tensor após unsqueeze:", y.shape)
+        
+
                                   
               
              
