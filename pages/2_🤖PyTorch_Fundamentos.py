@@ -4,6 +4,7 @@ import pytorch_lightning as pl
 from streamlit_option_menu import option_menu
 import numpy as np
 import pandas as pd
+from functions import helpers
 
 
 PAGE_TITLE = 'PyTorch Fundamentos 🤖'
@@ -109,21 +110,19 @@ def main():
 
         st.write('Você pode criar tensores a partir de listas ou matrizes numpy e vice-versa utilizando a função `.Tensor()`')
         st.write('Esta função cria um objeto do tipo tensor')
+        
         lista_python = [[1,2,3], [4,5,6]]
         t1 = torch.Tensor(lista_python)  
-
-        # Mostrar o código
-        with st.expander("**Cria um tensor 2x3 a partir de uma lista Python**"):
-            st.code("""
-                        import torch
-
-                        # Cria um tensor 2x3 a partir de uma lista Python
-                        lista_python = [[1,2,3], [4,5,6]]
-                        t1 = torch.Tensor(lista_python)
-                        print(t1)
-                    """, language="python")
-            st.write('**Valor do tensor t1 criado com uma lista python**')
-            st.write(t1)
+        with st.expander("**Cria um tensor 2x3 a partir de uma lista Python `torch.Tensor()`**"):
+            helpers.code_python("""
+                                 # Cria um tensor 2x3 a partir de uma lista Python
+                                 lista_python = [[1,2,3], [4,5,6]]
+                                 t1 = torch.Tensor(lista_python)
+                                 print(t1)
+                                 print(t1.size())""")
+            
+            helpers.print_tensor(t1, 't1')
+            
 
         array_numpy = np.array([[9,6,1], [5,3,2]])
         t2 = torch.Tensor(array_numpy)
@@ -139,38 +138,37 @@ def main():
                         t2 = torch.Tensor(array_numpy)
                         print(t2)                    
                     ''', language='python')
-            st.write('**Valor do tensor t2 criado com uma array numpy**')
-            st.write(t2)
+            st.write('**Valor do tensor t2 criado com uma array numpy**',t2.numpy(),'**Size:**',t2.size())
 
-        with st.expander('**Criando um tensor com range de valores com o método `.arange`**'):
-            st.write('É possivel criar um Tensor com um range de valores com o `.arange`')
+        with st.expander('**Criando um tensor com range de valores com o método `torch.arange()`**'):
+            st.write('É possivel criar um Tensor com um range de valores com o `torch.arange()`')
             v = torch.arange(5)
             st.code('''
                        # Criando tensores com range de valores
                        v = torch.arange(5)
                        print(v)
                    ''',language='python')
-            st.write('**Valor do Tensor v de 1 dimensão**')
-            st.write(v)
+            st.write('**Valor do Tensor v de 1 dimensão:**', v.numpy(), '**Size:**',v.size())
+            st.write('---')
+
             st.write('''O tensor criado é em tensor em 1 dimensão, 
-                        para mudar a dimensão podemos utilizar os metodos`.reshape()` e o `.view()` .''')
+                        para mudar a dimensão podemos utilizar os metodos`torch.reshape()` e o `torch.view()` .''')
             st.code('''
                        #Criando tensor em 1 dimensão com arange
                        v = torch.arange(9)
                        print(v)
                    ''',language='python')
             v = torch.arange(9)
-            st.write('**Valor tensor v em 1 dimensão**')
-            st.write(v)
+            st.write('**Valor tensor v em 1 dimensão**',v.numpy(),'**Size**', v.size())
             st.code('''
                         # Alterando o tensor para 2 dimensões
                         v = v.view(3,3)
                         print(v)
                     ''',language='python')
             v = v.view(3,3)
-            st.write('**Valor do tensor v em 2 dimensões**')
-            st.write(v)
-        with st.expander('**Criando um tensor Linear com `.linspace()`**'):
+            st.write('**Valor do tensor v em 2 dimensões**', v.numpy(), '**Size:**', v.size())
+            
+        with st.expander('**Criando um tensor Linear com `torch.linspace()`**'):
             st.write('''
                        O `torch.linspace()` é particularmente útil
                        para gerar tensores lineares com valores igualmente espaçados ao 
@@ -183,10 +181,12 @@ def main():
             st.code(''' 
                        # Cria um tensor com 10 pontos lineares de (1, 10)
                        v = torch.linspace(1, 10, steps = 10)
+                       print(v)
+                       print()
 
                      ''',language='python')
-            st.write('**Valor do tensor linear v**')
-            st.write(v)
+            st.write('**Valor do tensor linear v**', v.numpy(),'**Size:**',v.size())
+            
 
         with st.expander('**Criando um tensor em escala logarítimica**'):
             st.write('''
@@ -975,6 +975,47 @@ def main():
             st.write(torch.sum(x,0))
             st.write('**Soma por linha**')
             st.write(torch.sum(x,1))
+        
+        st.write('### Distribuições Estatísticas')
+        st.write('''PyTorch oferece suporte a uma variedade de distribuições estatísticas, o que
+                  é útil em muitos cenários de aprendizado de máquina e processamento de dados. 
+                 Essas distribuições são amplamente utilizadas em tarefas como amostragem de dados, 
+                 geração de números aleatórios e modelagem probabilística.''')
+        with st.expander('**Distribuição Uniforme: `Tensor.uniform_()`**'):
+             st.write('''A distribuição uniforme é uma das distribuições estatísticas 
+                      mais simples e amplamente usadas. Ela atribui a mesma probabilidade para 
+                      todos os valores dentro de um intervalo. Em outras palavras, todos os valores 
+                      dentro do intervalo têm a mesma chance de serem escolhidos.''')
+             st.code('''
+                        # Distribuição Uniforme Para Matriz com Range (0, 1)
+                        tensor = torch.Tensor(2, 2).uniform_(0, 1)
+                        print(tensor)
+                    ''',language='python')
+             st.write('**Tensor com distribuição uniforme**',torch.Tensor(2, 2).uniform_(0, 1).numpy())
+             
+
+        with st.expander('**Distribuição de Bernoulli `torch.bernoulli()`**'):
+             st.write('''A distribuição de Bernoulli é uma das distribuições de probabilidade mais 
+                      simples e fundamentais em estatística e teoria da probabilidade. Ela modela 
+                      experimentos aleatórios com dois resultados possíveis: sucesso (geralmente 
+                      denotado como 1) ou fracasso (geralmente denotado como 0). Esses resultados 
+                      são frequentemente interpretados como "sim" ou "não", "verdadeiro" ou "falso", 
+                      "positivo" ou "negativo".''')
+             st.code('''
+                        # Definindo a probabilidade de sucesso (0.7 para este exemplo)
+                        p = 0.7
+                        # Criando uma distribuição de Bernoulli com probabilidade de sucesso p
+                        bernoulli_distribution = torch.distributions.Bernoulli(probs=torch.tensor(p))
+            
+                        # Amostrando valores da distribuição de Bernoulli
+                        samples = bernoulli_distribution.sample((5,))
+                     ''',language='python')
+             p = 0.7
+             bernoulli_distribution = torch.distributions.Bernoulli(probs=torch.tensor(p))
+             samples = bernoulli_distribution.sample((5,))
+
+             st.write("**Amostras de Bernoulli:**", samples.numpy())
+
 
         st.write('## **Multiplicação de Matrizes**')
         st.write('''
@@ -1243,10 +1284,7 @@ def main():
               st.write('**Tensor após unsqueeze:**')
               st.write(y)
               st.write("Dimensões do tensor após unsqueeze:", y.shape)
-        
-
-                                  
-              
+                           
              
 
             
