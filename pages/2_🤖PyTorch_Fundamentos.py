@@ -122,56 +122,62 @@ def main():
                                  lista_python = [[1,2,3], [4,5,6]]
                                  t1 = torch.Tensor(lista_python)
                                  print(t1)
-                                 print(t1.size())""")
+                                 print(t1.size())
+                                """)
             
-            helpers.print_tensor(t1, 't1')
+            helpers.print_tensor(t1, name='**t1**')
             
 
         array_numpy = np.array([[9,6,1], [5,3,2]])
         t2 = torch.Tensor(array_numpy)
 
         # Mostrar código
-        with st.expander('**Cria um tensor 2x3 a partir de array numpy**'):
-            st.code('''
-                        import torch
-                        import numpy as np
+        with st.expander('**Cria um tensor 2x3 a partir de array numpy - `torch.Tensor(array_numpy)`**'):
+            helpers.code_python('''
+                                 # Cria um tensor 2x3 a partir de um array Numpy                    
+                                 array_numpy = np.array([[9,6,1], [5,3,2]])
+                                 t2 = torch.Tensor(array_numpy)
+                                 print(t2)
+                                 print(t2.size())
+                                ''')
+            helpers.print_tensor(t2,string_custom='**Valor do tensor t2 criado com uma array numpy**')
+            
 
-                        # Cria um tensor 2x3 a partir de um array Numpy                    
-                        array_numpy = np.array([[9,6,1], [5,3,2]])
-                        t2 = torch.Tensor(array_numpy)
-                        print(t2)                    
-                    ''', language='python')
-            st.write('**Valor do tensor t2 criado com uma array numpy**',t2.numpy(),'**Size:**',t2.size())
-
-        with st.expander('**Criando um tensor com range de valores com o método `torch.arange()`**'):
+        with st.expander('**Criando um tensor com range de valores - `torch.arange()`**'):
             st.write('É possivel criar um Tensor com um range de valores com o `torch.arange()`')
             v = torch.arange(5)
-            st.code('''
-                       # Criando tensores com range de valores
-                       v = torch.arange(5)
-                       print(v)
-                   ''',language='python')
-            st.write('**Valor do Tensor v de 1 dimensão:**', v.numpy(), '**Size:**',v.size())
+            helpers.code_python('''
+                                 # Criando tensores com range de valores
+                                 v = torch.arange(5)
+                                 print(v)
+                                 print(v.size())
+                                ''')
+            helpers.print_tensor(v, string_custom = '**Valor do Tensor v de 1 dimensão:**')
+            
             st.write('---')
 
             st.write('''O tensor criado é em tensor em 1 dimensão, 
                         para mudar a dimensão podemos utilizar os metodos`torch.reshape()` e o `torch.view()` .''')
-            st.code('''
-                       #Criando tensor em 1 dimensão com arange
-                       v = torch.arange(9)
-                       print(v)
-                   ''',language='python')
+            helpers.code_python('''
+                                 #Criando tensor em 1 dimensão com arange
+                                 v = torch.arange(9)
+                                 print(v)
+                                 print(v.size())
+                                ''')
             v = torch.arange(9)
-            st.write('**Valor tensor v em 1 dimensão**',v.numpy(),'**Size**', v.size())
-            st.code('''
-                        # Alterando o tensor para 2 dimensões
-                        v = v.view(3,3)
-                        print(v)
-                    ''',language='python')
-            v = v.view(3,3)
-            st.write('**Valor do tensor v em 2 dimensões**', v.numpy(), '**Size:**', v.size())
+            helpers.print_tensor(v, string_custom = '**Valor tensor v em 1 dimensão**')
             
-        with st.expander('**Criando um tensor Linear com `torch.linspace()`**'):
+            helpers.code_python('''
+                                 # Alterando o tensor para 2 dimensões
+                                 v = v.view(3,3)
+                                 print(v)
+                                 print(v.size())
+                                ''')
+            v = v.view(3,3)
+            helpers.print_tensor(v, string_custom = '**Valor do tensor v em 2 dimensões**')
+            
+            
+        with st.expander('**Criando um tensor Linear - `torch.linspace()`**'):
             st.write('''
                        O `torch.linspace()` é particularmente útil
                        para gerar tensores lineares com valores igualmente espaçados ao 
@@ -181,51 +187,51 @@ def main():
                         o valor final do intervalo e o número de elementos desejados no tensor 
                      ''')
             v = torch.linspace(1, 10, steps=10)
-            st.code(''' 
-                       # Cria um tensor com 10 pontos lineares de (1, 10)
-                       v = torch.linspace(1, 10, steps = 10)
-                       print(v)
-                       print()
-
-                     ''',language='python')
-            st.write('**Valor do tensor linear v**', v.numpy(),'**Size:**',v.size())
+            helpers.code_python(''' 
+                                 # Cria um tensor com 10 pontos lineares de (1, 10)
+                                 v = torch.linspace(1, 10, steps = 10)
+                                 print(v)
+                                 print(v.size())
+                                ''')
+            helpers.print_tensor(v, name = '**v**')
+            
             
 
-        with st.expander('**Criando um tensor em escala logarítimica**'):
+        with st.expander('**Criando um tensor em escala logarítimica - `torch.logspace()`**'):
             st.write('''
                         Ao usar `torch.logspace()`, fornecemos três argumentos principais: 
                         o expoente inicial, o expoente final e o número de elementos desejados no 
                         tensor. O PyTorch então retorna um tensor com valores distribuídos de forma 
                         logarítmica entre 10^inicio e 10^fim, inclusive.
-                   ''')
+                    ''')
             v = torch.logspace(start = -1, end = 10, steps = 5 )
-            st.code(''' 
-                        # Criando tensor em escala logarítimica    
-                        v = torch.logspace(start = -1, end = 10, steps = 5 )
+            helpers.code_python(''' 
+                                 # Criando tensor em escala logarítimica    
+                                 v = torch.logspace(start = -1, end = 10, steps = 5 )
+                                 print(v)
+                                 print(v.size())
+                                ''')
+            helpers.print_tensor(v, string_custom='**Valor do tensor logarítimico**')
 
-                    ''',language='python')
-            st.write('**Valor do tensor logarítimico**') 
-            st.write(v)
-
-        with st.expander('**Criando um tensor com valores absolutos**'):
+        with st.expander('**Criando um tensor com valores absolutos - `torch.abs()`**'):
             st.write('''
                        Para criar um tensor com valores absolutos em PyTorch,
                        você pode usar a função `torch.abs()` para calcular os valores 
                        absolutos de um tensor existente ou pode criar um tensor com 
-                       valores absolutos diretamente.''')
+                       valores absolutos diretamente.
+                     ''')
             f = torch.FloatTensor([-1, -2, 3])
             r = torch.abs(f)
-            st.code('''
-                        # Criando um tensor com valores negátivos    
-                        f = torch.FloatTensor([-1, -2, 3])
-                    
-                        # Convertendo o tensor para valores absolutos.
-                        r = torch.abs(f)
-                        print(r)
-                    ''',language='python')
-            st.write('**Valor do tensor r com valores absolutos**')
-            st.write(r)
-        
+            helpers.code_python('''
+                                 # Criando um tensor com valores negátivos    
+                                 f = torch.FloatTensor([-1, -2, 3])
+                             
+                                 # Convertendo o tensor para valores absolutos.
+                                 r = torch.abs(f)
+                                 print(r)
+                                 print(r.size())
+                                ''')
+            helpers.print_tensor(r,'**Valor do tensor r com valores absolutos**')        
 
         st.write('### Tipos de Tensores no PyTorch')
         st.write('''
@@ -251,105 +257,100 @@ def main():
         a = torch.rand(2,2,3)
 
         # Mostrar código
-        with st.expander('Cria um tensor 2 x 2 x 3 com valores randômicos'):
-            st.code('''
-                        import torch
-
-                        # Cria um tensor 2 x 2 x 3 com valores randômicos                   
-                        a = torch.rand(2,2,3)
-                        print(a)                    
-                    ''', language='python')
-            st.write(a)
+        with st.expander('**Criando tensor com valores randômicos - `torch.rand()`**'):
+            helpers.code_python('''
+                                 # Cria um tensor 2 x 2 x 3 com valores randômicos                   
+                                 a = torch.rand(2,2,3)
+                                 print(a)
+                                 print(a.size())
+                                ''')
+            helpers.print_tensor(a, string_custom='**Tensor com valores randômicos**')
+            
 
         b = torch.zeros(2,2,3)
 
         # Mostrar código
-        with st.expander('Criando um tensor preenchido com zeros'):
-            st.code('''
-                        import torch
-
-                        # Criando um tensor preenchido com zeros                  
-                        b = torch.zeros(2,2,3)
-                        print(b)                    
-                    ''', language='python')
-            st.write(b)
+        with st.expander('**Criando um tensor preenchido com zeros - `torch.zeros()`**'):
+            helpers.code_python('''
+                                 # Criando um tensor preenchido com zeros                  
+                                 b = torch.zeros(2,2,3)
+                                 print(b)
+                                 print(b.size())
+                                ''')
+            helpers.print_tensor(b, string_custom='**Tensor preenchido com zeros**')
 
         c = torch.zeros_like(a)
         
         # Mostrar código
-        with st.expander('Criando um tensor semelhante a outro'):
-            st.code('''
-                        import torch
-                                                                 
-                        # Criando um tensor semelhante a outro              
-                        c = torch.zeros_like(a)
-                        print(c)                    
-                    ''', language='python')
-            st.write(c)
+        with st.expander('**Criando um tensor semelhante a outro - `torch.zeros_like()`**'):
+            helpers.code_python('''                                   
+                                 # Criando um tensor semelhante a outro              
+                                 c = torch.zeros_like(a)
+                                 print(c)
+                                 print(c.size())
+                                ''')
+            helpers.print_tensor(c, string_custom='**Tensor com 0 "C" semelhante a "A" (com as mesmas dimensões)**')
+            
 
         d = torch.ones_like(a)
 
         # Mostrar código
-        with st.expander("**Criando um tensor de 1's semelhante (like) ao tensor de zeros (mesmas dimensões) `torch.ones_like()`**"):
-            st.code('''
-                        import torch
-
-                        # Criando um tensor de 1's semelhante (like) ao tensor de zeros (mesmas dimensões)             
-                        d = torch.ones_like(a)
-                        print(d)                    
-                    ''', language='python')
-            st.write(d, unsafe_allow_html=True)
+        with st.expander("**Criando um tensor de 1's semelhante (like) ao tensor de zeros (mesmas dimensões) - `torch.ones_like()`**"):
+            helpers.code_python('''
+                                    # Criando um tensor de 1's semelhante (like) ao tensor de zeros (mesmas dimensões)             
+                                    d = torch.ones_like(a)
+                                    print(d)
+                                    print(d.size())
+                                ''')
+            helpers.print_tensor(d, string_custom='**Tensor com 1 "D" semelhante a "A" (com as mesmas dimensões)**')
+            
         
-        with st.expander('**Tensor Diagonal `torch.diag()`**'):
+        with st.expander('**Tensor Diagonal - `torch.diag()`**'):
              st.write('''Uma das operações comuns em álgebra linear é a criação de uma matriz diagonal, 
                       na qual todos os elementos fora da diagonal principal são zeros e os elementos 
                       na diagonal principal são iguais. Em PyTorch, podemos facilmente criar um tensor 
                       diagonal de uns utilizando a função `torch.diag()`.''')
-             st.code('''
-                        # Criando tensores de 1's  
-                        v = torch.ones(3)
-                        print(v)
+             helpers.code_python('''
+                                    # Criando tensores de 1's  
+                                    v = torch.ones(3)
+                                    print(v)
+                                    print(v.size())
 
-                        # Transpondo para um Tensor de Size 3x3
-                        r = torch.diag(v)
-                        print(r)
-                ''',language='python')
+                                    # Transpondo para um Tensor de Size 3x3
+                                    r = torch.diag(v)
+                                    print(r)
+                                    print(r.size())
+                                 ''')
              v = torch.ones(3)
-             st.write("**Tensor de 1's**")
-             st.write(v)
+             helpers.print_tensor(v, string_custom="**Tensor de 1's**")
+
              r = torch.diag(v)
-             st.write('**Vetor Diagonal transposto**')
-             st.write(r.numpy())
-             
-
-
+             helpers.print_tensor(r, string_custom='**Tensor "r" diagonal transposto**')
 
         st.write('### Criando tensores de diferentes tipos')
         st.write("""
-        No PyTorch, existem diferentes tipos de tensores, cada um com suas próprias características e finalidades específicas. Os principais tipos de tensores são:
+                    No PyTorch, existem diferentes tipos de tensores, cada um com suas próprias características e finalidades específicas. Os principais tipos de tensores são:
 
-        1. Tensor Float: Este tipo de tensor é utilizado para representar números reais, sendo frequentemente empregado em tarefas de aprendizado de máquina, onde a precisão decimal é importante. Podemos encontrar tensores float de 32 bits (torch.float32 ou torch.float) e 64 bits (torch.float64 ou torch.double), sendo que o primeiro é mais comumente utilizado devido à sua eficiência computacional.
+                    1. Tensor Float: Este tipo de tensor é utilizado para representar números reais, sendo frequentemente empregado em tarefas de aprendizado de máquina, onde a precisão decimal é importante. Podemos encontrar tensores float de 32 bits (torch.float32 ou torch.float) e 64 bits (torch.float64 ou torch.double), sendo que o primeiro é mais comumente utilizado devido à sua eficiência computacional.
 
-        2. Tensor Inteiro: Este tipo de tensor é utilizado para representar números inteiros. Assim como os tensores float, podemos encontrar tensores inteiros de diferentes tamanhos, como torch.int8, torch.int16, torch.int32 e torch.int64, dependendo da precisão necessária para a aplicação específica.
+                    2. Tensor Inteiro: Este tipo de tensor é utilizado para representar números inteiros. Assim como os tensores float, podemos encontrar tensores inteiros de diferentes tamanhos, como torch.int8, torch.int16, torch.int32 e torch.int64, dependendo da precisão necessária para a aplicação específica.
 
-        3. Tensor Booleano: Tensores booleanos são utilizados para representar valores lógicos, ou seja, verdadeiro ou falso. Eles são frequentemente utilizados em operações de máscara e indexação.
+                    3. Tensor Booleano: Tensores booleanos são utilizados para representar valores lógicos, ou seja, verdadeiro ou falso. Eles são frequentemente utilizados em operações de máscara e indexação.
 
-        4. Tensor Byte: Este tipo de tensor é semelhante ao tensor booleano, mas pode armazenar valores inteiros de 0 a 255, ocupando menos espaço de memória do que um tensor inteiro de 32 bits. É comumente utilizado em operações de processamento de imagens.
+                    4. Tensor Byte: Este tipo de tensor é semelhante ao tensor booleano, mas pode armazenar valores inteiros de 0 a 255, ocupando menos espaço de memória do que um tensor inteiro de 32 bits. É comumente utilizado em operações de processamento de imagens.
 
-        A existência de múltiplos tipos de tensores no PyTorch se deve à necessidade de flexibilidade e eficiência em diferentes cenários de aplicação. Cada tipo de tensor oferece um compromisso entre precisão e eficiência computacional, permitindo aos desenvolvedores escolher o tipo mais adequado para a sua aplicação específica. Isso permite otimizar o desempenho e o consumo de recursos do modelo, garantindo ao mesmo tempo a precisão necessária para as tarefas em questão.
-                
-        **Vejamos um exemplo de criação tensores:**""")
+                    A existência de múltiplos tipos de tensores no PyTorch se deve à necessidade de flexibilidade e eficiência em diferentes cenários de aplicação. Cada tipo de tensor oferece um compromisso entre precisão e eficiência computacional, permitindo aos desenvolvedores escolher o tipo mais adequado para a sua aplicação específica. Isso permite otimizar o desempenho e o consumo de recursos do modelo, garantindo ao mesmo tempo a precisão necessária para as tarefas em questão.
+
+                    **Vejamos um exemplo de criação tensores:**
+                 """)
 
         a = np.array([[4,5,6], [7,8,9]])
-        with st.expander('Criando numpy array'):
-            st.code('''
-                        import numpy as np
-
-                        # Array numpy           
-                        a = np.array([[4,5,6], [7,8,9]])
-                        print(f'Tipo de dado Array Numpy: {a.dtype}')
-                                       
-                    ''', language='python')
+        with st.expander('**Criando numpy array**'):
+            helpers.code_python('''
+                                 # Array numpy           
+                                 a = np.array([[4,5,6], [7,8,9]])
+                                 print(f'Tipo de dado Array Numpy: {a.dtype}')
+                                ''')
             st.write(f'Tipo de dado Array Numpy: {a.dtype}')
             st.write(a)
 
@@ -358,79 +359,73 @@ def main():
         st.write('**CUIDADO:** Um objeto Tensor não inicializado contém dados de lixo de memória!')
         
         b = torch.Tensor(a)
-        with st.expander('Criando tensor utilizando o array'):
-            st.code('''
-                        import torch
-                    
-                        # Criando um Tensor.       
-                        b = torch.Tensor(a)
-                        print(f'Tipo de dado `Tensor`: {b.type()}')
-                                       
-                    ''', language='python')
+        with st.expander('**Criando tensor utilizando o array**'):
+            helpers.code_python('''
+                                 # Criando um Tensor.       
+                                 b = torch.Tensor(a)
+                                 print(f'Tipo de dado `Tensor`: {b.type()}')
+                                ''')
             st.write(f"Tipo de dado Tensor: {b.type()}", unsafe_allow_html=True)
             st.write(b)
         
         c = torch.FloatTensor(a)
-        with st.expander('Criando tensor um `FloatTensor` utilizando um array.'):
+        with st.expander('**Criando tensor um `torch.FloatTensor()` utilizando um array.**'):
             st.code('''
-                        import torch
-                    
-                        # Criando um FloatTensor        
-                        c = torch.FloatTensor(a)
-                        print(f'Tipo de dado `FloatTensor`: {c.type()}')
-                                       
-                    ''', language='python')
+                     # Criando um FloatTensor        
+                     c = torch.FloatTensor(a)
+                     print(f'Tipo de dado `FloatTensor`: {c.type()}')
+                    ''')
             st.write(f"Tipo de dado Tensor: {c.type()}", unsafe_allow_html=True)
             st.write(c)
 
         d = torch.LongTensor(a)
-        with st.expander('Criando tensor um `LongTensor` utilizando o array.'):
+        with st.expander('**Criando tensor um `torch.LongTensor()` utilizando o array.**'):
             st.code('''
-                        import torch
-                    
-                        # Criando um LongTensor        
-                        d = torch.LongTensor(a)
-                        print(f'Tipo de dado Tensor: {d.type()}')
-                                       
-                    ''', language='python')
+                      # Criando um LongTensor        
+                      d = torch.LongTensor(a)
+                      print(f'Tipo de dado Tensor: {d.type()}')
+                    ''')
             st.write(f"Tipo de dado Tensor: {d.type()}", unsafe_allow_html=True)
             st.write(d)            
 
         e = [True, False,True, True, True, False]
         f = torch.Tensor(e)
-        with st.expander('Criando tensor a partir da lista de booleanos'):
+        with st.expander('**Criando tensor a partir da lista de booleanos - `torch.Tensor(bool)`**'):
             st.code('''
-                        import torch
-
-                        # Criando tensor a partir da lista de booleanos          
-                        e = [True, False, True, True, False]
-                        f = torch.Tensor(e)
-                        print(f)
-                        print(f.type())           
-                    ''', language='python')
+                     # Criando tensor a partir da lista de booleanos          
+                     e = [True, False, True, True, False]
+                     f = torch.Tensor(e)
+                     print(f)
+                     print(f.type())           
+                    ''')
             st.write(f)
             st.write(f.type())
         
         g = torch.zeros(10, dtype = torch.bool)
-        with st.expander('Criando tensor com valores booleanos'):
+        with st.expander('**Criando tensor com valores booleanos - `torch.zeros(dtype = torch.bool)`**'):
             st.code('''
-                        import torch
-
-                        # Criando tensor com valores booleanos         
-                        g = torch.zeros(10, dtype = torch.bool)
-                        print(g)
-                        print(g.type())           
-                    ''', language='python')
+                      # Criando tensor com valores booleanos         
+                      g = torch.zeros(10, dtype = torch.bool)
+                      print(g)
+                      print(g.type())
+                    ''')
             st.write(g)
             st.write(g.type())
         
         st.write('### Alterando o tipo do tensor:')
         st.write("""
-        É comum a necessidade de converter tensores de um tipo para outro. Isso pode ser útil em várias situações, como quando precisamos garantir a consistência dos tipos de dados em operações matemáticas ou quando queremos adaptar os tensores para diferentes operações ou modelos.
-
-        Para converter um tensor para outro tipo, o PyTorch oferece diversos métodos. Por exemplo, podemos utilizar o método `.float()` para converter um tensor para ponto flutuante, ou `.long()` para converter para números inteiros. Também é possível utilizar métodos como `.double()`, `.half()`, `.bool()`, entre outros, dependendo das necessidades específicas da aplicação.
-
-        Vejamos um exemplo de conversão de tipos de tensores:
+                  É comum a necessidade de converter tensores de um tipo para outro. Isso pode ser 
+                  útil em várias situações, como quando precisamos garantir a consistência dos 
+                  tipos de dados em operações matemáticas ou quando queremos adaptar os tensores 
+                  para diferentes operações ou modelos.
+          
+                  Para converter um tensor para outro tipo, o PyTorch oferece diversos métodos. 
+                 Por exemplo, podemos utilizar o método `torch.float()` para converter um tensor para 
+                 ponto flutuante, ou `torch.long()` para converter para números inteiros. Também é possível
+                  utilizar métodos como `torch.double()`, `torch.half()`, `torch.bool()`, entre outros, dependendo 
+                 das necessidades específicas da aplicação.
+          
+                  Vejamos um exemplo de conversão de tipos de tensores:
                  """)
         a = np.array([[4,5,6], [7,8,9]])
         c = torch.FloatTensor(a)
@@ -438,18 +433,16 @@ def main():
         c = c.long()
         
         # Mostrar código
-        with st.expander('Mostrar código'):
+        with st.expander('**Mostrar código**'):
             st.code('''
-                        import torch
-
-                        # Alterando o tipo do tensor:
-                        a = np.array([[4,5,6], [7,8,9]])
-                        c = torch.FloatTensor(a)
-                        print(c.type())
-                        c = c.long()
-                        print(c)
-                        print(c.type())                                     
-                    ''', language='python')
+                      # Alterando o tipo do tensor:
+                      a = np.array([[4,5,6], [7,8,9]])
+                      c = torch.FloatTensor(a)
+                      print(c.type())
+                      c = c.long()
+                      print(c)
+                      print(c.type())                                     
+                    ''')
             st.write(valor.type())
             st.write(c)
             st.write(c.type())
@@ -467,28 +460,22 @@ def main():
         x = torch.randint(0, 10, size = (2, 3, 4))
 
 
-        with st.expander('Mostrar código'):
+        with st.expander('**Mostrar código**'):
             st.code('''
-                        import torch
-
-                        # Cria um tensor com valores randômicos
-                        torch.manual_seed(777)
-                        x = torch.randint(0, 10, size = (2, 3, 4))                   
-                        print(x)
-
-                        # Shape - Atributo do objeto tensor
-                        x.shape
-
-                        # Size - Método do objeto tensor
-                        x.size()                    
-
-                        # Número total de elementos no Tensor                                   
-                        torch.numel(x)
-
-                        # Alterando o size do tensor (mas sem mudar o tensor original)
-                        print(x.view(2, 2, 6))                                   
-                    ''', language='python')
-            st.write(x)
+                      # Cria um tensor com valores randômicos
+                      torch.manual_seed(777)
+                      x = torch.randint(0, 10, size = (2, 3, 4))                   
+                      print(x)  
+                      # Shape - Atributo do objeto tensor
+                      x.shape  
+                      # Size - Método do objeto tensor
+                      x.size()                      
+                      # Número total de elementos no Tensor                                   
+                      torch.numel(x)  
+                      # Alterando o size do tensor (mas sem mudar o tensor original)
+                      print(x.view(2, 2, 6))                                   
+                    ''')
+            st.write(x.numpy())
             st.write(x.shape)
             st.write(x.size())
             st.write(torch.numel(x))
@@ -498,37 +485,32 @@ def main():
         st.write('Alterando o size do tensor (mas sem mudar o tensor original) com `view()`')
         
         # Mostrar código
-        with st.expander('Mostrar código'):
-            st.code('''
-                       import torch
-                                                                
-                       # Cria um tensor com valores randômicos
-                       torch.manual_seed(777)
-                       x = torch.randint(0, 10, size = (2, 3, 4))                   
-                       
-                       # Alterando o size do tensor (mas sem mudar o tensor original)
-                       print(f"Altera de '{x.size()}' para '{x.view(2, 2, 6).size()}'\n")     
-                       print(x.view(2, 2, 6))                                                     
-                    ''', language='python')
-            st.write(f"Altera de '{x.size()}' para '{x.view(2, 2, 6).size()}'\n")
-            st.write(x.view(2, 2, 6))
+        with st.expander('**Alterando o size do tensor - `torch.view()`**'):
+            st.code('''      
+                      # Cria um tensor com valores randômicos
+                      torch.manual_seed(777)
+                      x = torch.randint(0, 10, size = (2, 3, 4))                   
+                      
+                      # Alterando o size do tensor (mas sem mudar o tensor original)
+                      print(f"Altera de '{x.size()}' para '{x.view(2, 2, 6).size()}'")     
+                      print(x.view(2, 2, 6))                                                     
+                    ''')
+            helpers.print_tensor(x, string_custom='**Tensor X - size 2x3x4**')
+            st.write(f"**Altera de '{x.size()}' para '{x.view(2, 2, 6).size()}'**")
+            helpers.print_tensor(x.view(2, 2, 6), string_custom='**Tensor X - com reshape 2x2x6**')
+            
 
-        st.write('Também podemos usar o método `view()` para criar um tensor')
+        st.write('Também podemos usar o método `torch.view()` para criar um tensor')
         t = torch.arange(60).view(3, 4, 5)
-        with st.expander('Mostrar código:'):
+        with st.expander('**Criando um tensor com - `torch.view()`**'):
             st.code('''
-                        import torch
-
-                        t = torch.arange(60).view(3, 4, 5)
-                        print(t)
-                        print(t.shape)
-                        print(t.size())
-                        print(torch.numel(t))
-                    ''', language= 'python')
-            st.write(t) 
-            st.write(t.shape) 
-            st.write(t.size()) 
-            st.write(torch.numel(t))
+                      t = torch.arange(60).view(3, 4, 5)
+                      print(t)
+                      print(t.size())
+                      print(torch.numel(t))
+                    ''')
+            helpers.print_tensor(t, string_custom='**Tensor criado com `torch.view()`**')
+            st.write('**Quantidade de elemenos do tensor:**',torch.numel(t))
 
 
         
@@ -536,16 +518,20 @@ def main():
             try:
                 return torch.randint(low=0, high=11, size=dimensions)
             except ValueError:
-                st.error('Digite dimensões válidas para o tensor (números inteiros separados por vírgula).')
+                st.error('**Digite dimensões válidas para o tensor (números inteiros separados por vírgula).**')
 
         st.write("### Slicing de Tensores")
         st.write('''
-        Para realizar o slicing de um tensor, precisamos especificar os índices ou intervalos ao longo de cada dimensão do tensor. Podemos usar notações de intervalo para especificar o slicing de forma concisa e intuitiva.''')
+                  Para realizar o slicing de um tensor, precisamos especificar os índices ou
+                  intervalos ao longo de cada dimensão do tensor. Podemos usar notações de intervalo 
+                 para especificar o slicing de forma concisa e intuitiva.''')
         
         st.write('''
                     Sintaxe:
 
-                    `tensor[tensor_position_start:tensor_position_end, tensor_dimension_start:tensor_dimension_end , tensor_value_start:tensor_value_end]`
+                    `tensor[tensor_position_start:tensor_position_end, 
+                     tensor_dimension_start:tensor_dimension_end, 
+                     tensor_value_start:tensor_value_end]`
 
                     Parâmetros:
 
@@ -557,15 +543,17 @@ def main():
                     - tensor_value_stop
                 ''')
         st.write('''
-                 Vamos exemplificar com um exemplo interativo onde você pode fornecer as dimensões em um imput logo a baixo:
+                  Vamos exemplificar com um exemplo interativo onde você pode fornecer as dimensões
+                  em um imput logo a baixo:
                  
-                Neste exemplo é criado um tensor com dimensões customizadas de acordo com o input e com seed definida para ter a possibilidade replicação.
+                  Neste exemplo é criado um tensor com dimensões customizadas de acordo com o input 
+                  e com seed definida para ter a possibilidade replicação.
                 
-                Os valores dos tensores são valore inteiros de 0 a 10.
+                  Os valores dos tensores são valore inteiros de 0 a 10.
                  ''')
         st.write('### Exemplo com input:')
         torch.manual_seed(222)
-        dim_input = st.text_input("Digite as dimensões do tensor separadas por vírgula (ex: 3,4,5):")
+        dim_input = st.text_input("**Digite as dimensões do tensor separadas por vírgula (ex: 3,4,5):**")
 
         if dim_input:
             dimensions = [int(dim) for dim in dim_input.split(',') if dim.isdigit()]
@@ -578,7 +566,7 @@ def main():
             try:
                 if slice_input:
                     slices = [int(s) for s in slice_input.split(',') if s.isdigit()]
-                    result = x[tuple(slices)]  # Convertendo para uma tupla para indexação
+                    result = x[tuple(slices)]
                     st.write("Resultado do slicing:", result)
                     with st.expander('Mostrar código: '):
                         st.code(f'''
@@ -595,76 +583,88 @@ def main():
             except IndexError:
                 st.error("Índices de slice inválidos.")
 
-        st.write('''Fatiar um Tensor com slicing baseado em indexação é útil, 
-                     mas pode ser impraticável com tensores de muitas dimensões.
-                     Para fatiar um tensor 4D no PyTorch, você pode usar o método 
-                     `tensor.narrow()`. Este método permite especificar as dimensões 
-                     ao longo das quais deseja fatiar o tensor e os índices inicial e 
-                     final de cada dimensão.''')
+        st.write('### Slicing')
+        st.write('''
+                  Fatiar um Tensor com slicing baseado em indexação é útil, 
+                  mas pode ser impraticável com tensores de muitas dimensões.
+                  Para fatiar um tensor 4D no PyTorch, você pode usar o método 
+                  `torch.narrow()`. Este método permite especificar as dimensões 
+                  ao longo das quais deseja fatiar o tensor e os índices inicial e 
+                  final de cada dimensão.
+                 ''')
         
         st.write('**3 Dimensões**')
         x = torch.tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-        with st.expander('Cria um tensor '):
-                        st.code(f'''
-                                x = torch.tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-                                print(x)
-                                ''',language='python')
-                        st.write(x)
+        with st.expander('**Criando um tensor**'):
+             st.code('''
+                       # Criando um tensor
+                       x = torch.tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+                       print(x)
+                       print(x.size())
+                     ''')
+             helpers.print_tensor(x, string_custom='Tensor "x"')
+            
         y = torch.narrow(x, 0, 0, 2)
-        with st.expander('A partir da dimensão de índice 0, retorne as dimensões de índice 0 a 2 '):
-                        st.code(f'''
-                                y = torch.narrow(x, 0, 0, 2)
-                                print(y)
-                                ''',language='python')        
-                        st.write(y)
-
+        with st.expander('**A partir da dimensão de índice 0, retorne as dimensões de índice 0 a 2 - `torch.narrow()`**'):
+             st.code('''
+                     # Slicing com narrow
+                     y = torch.narrow(x, 0, 0, 2)
+                     print(y)
+                     print(y.size())
+                     ''')        
+             helpers.print_tensor(y, string_custom='**Slicing do tensor x com narrow**')
+ 
         st.write('**4 Dimensões**')
         torch.manual_seed(333)
         tensor_4d = torch.randn(4,3,5,7)
-        with st.expander('Cria um tensor de 4 dimensões'):
+        with st.expander('**Cria um tensor de 4 dimensões**'):
              st.code('''
-                        torch.manual_seed(333)
-                        tensor_4d = torch.randn(4,3,5,7)
-                     
-                        #Quantidade de dimensões
-                        tensor_4d.dim()
-                        print(tensor_4d)''',language='python')
-             st.write(tensor_4d.dim())
-             st.write(tensor_4d)
+                      torch.manual_seed(333)
+                      tensor_4d = torch.randn(4,3,5,7)
+                      
+                      #Quantidade de dimensões
+                      tensor_4d.dim()
+                      print(tensor_4d)
+                      print(tensor_4d.size())
+                     ''')
+             
+             helpers.print_tensor(tensor_4d, string_custom='**tensor de 4 dimensões**', dim=True)
+
         sliced_tensor_4d = tensor_4d.narrow(2, 0, 2)
-        with st.expander('A partir da dimensão de índice 2, retorne as dimensões entre índices 0 e 2. '):
+        with st.expander('**A partir da dimensão de índice 2, retorne as dimensões entre índices 0 e 2.**'):
              st.code('''
-                        sliced_tensor_4d = tensor_4d.narrow(2, 0, 2)
-                        sliced_tensor_4d.shape
-                        print(sliced_tensor_4d)
-                    ''',language='python')
-             st.write(sliced_tensor_4d.shape)
-             st.write(sliced_tensor_4d)
+                      sliced_tensor_4d = tensor_4d.narrow(2, 0, 2)
+                      sliced_tensor_4d.shape
+                      print(sliced_tensor_4d)
+                    ''')
+             helpers.print_tensor(sliced_tensor_4d, string_custom='**Slicing tensor 4d**', dim = True)
+  
         
         st.write('**5 Dimensões**')
         torch.manual_seed(222)
         tensor_5d = torch.randn(4, 3, 5, 7, 3)
-        with st.expander('Cria um tensor de 5 dimensões'):
-            st.code(''' 
-                        tensor_5d = torch.randn(4, 3, 5, 7, 3)
-                        tensor_5d.dim()
-                        print(tensor_5d)
-                    ''', language='python')
-            st.write(tensor_5d.dim())
-            st.write(tensor_5d)
+        with st.expander('**Cria um tensor de 5 dimensões**'):
+             st.code(''' 
+                       tensor_5d = torch.randn(4, 3, 5, 7, 3)
+                       print(tensor_5d.dim())
+                       print(tensor_d.size())
+                       print(tensor_5d)
+                     ''')
+             helpers.print_tensor(tensor_5d, string_custom='**Tensor 5 dimensões:**', dim = True)
+
         
         sliced_tensor_5d = tensor_5d.narrow(2, 0, 2).narrow(3, 0, 1)
-        with st.expander('A partir da dimensão de índice 2, retorne as dimensões entre índices 0 e 2. '):
+        with st.expander('**A partir da dimensão de índice 2, retorne as dimensões entre índices 0 e 2.**'):
              st.code('''
-                        # Faça isso em todas as posições e colocações.
-                        # Depois disso, a partir da dimensão de índice 3, retorne as dimensões os índices 0 e 1 (ou seja, somente índice 0)
-                        sliced_tensor_5d = tensor_5d.narrow(2, 0, 2).narrow(3, 0, 1)
+                      # Faça isso em todas as posições e colocações.
+                      # Depois disso, a partir da dimensão de índice 3, retorne as dimensões os índices 0 e 1 (ou seja, somente índice 0)
+                      sliced_tensor_5d = tensor_5d.narrow(2, 0, 2).narrow(3, 0, 1)    
+                      print(sliced_tensor_5d)
+                    ''')
+             helpers.print_tensor(sliced_tensor_5d, string_custom='**Tensor 5 dimensões com slicing:**', dim = True)
 
-                        print(sliced_tensor_5d)
-                    ''', language='python')
-             st.write(sliced_tensor_5d)
     if selected == '3 - Operações aritméticas com Tensores':
-        st.write('# **Operações aritméticas com Tensores**', unsafe_allow_html=True)
+        st.write('# **Operações aritméticas com Tensores**')
         st.write('''
                     Operações aritméticas são essenciais para a manipulação e transformação de dados, 
                     desempenhando um papel crítico em todas as etapas do desenvolvimento de modelos.
@@ -674,7 +674,6 @@ def main():
                     ajuste de parâmetros, atualização de gradientes e normalização de dados. Por exemplo, 
                     ao treinar um modelo, essas operações podem ser usadas para calcular a diferença entre 
                     a saída prevista e o valor real (erro), que é essencial para ajustar os pesos do modelo.
-
                 ''')
         # Cria 2 tensores
         x = torch.rand(2, 3) 
@@ -682,24 +681,22 @@ def main():
 
         # Operação de soma
         z1 = x + y
-        with st.expander('**Operação de soma**'):
+        with st.expander('**Operação de soma `x + y`**'):
              st.code('''
-                        # Cria 2 tensores
-                        x = torch.rand(2, 3) 
-                        y = torch.rand(2, 3)
+                      # Cria 2 tensores
+                      x = torch.rand(2, 3) 
+                      y = torch.rand(2, 3)
+                       
+                      # Operação de soma
+                      z1 = x + y
+                      print(z1)
+                    ''')
+             st.write('**Valor de x**', x.numpy())
+             st.write('**Valor de y**', y.numpy())
+             st.write('**Soma x + y**', z1.numpy())
 
-                        # Operação de soma
-                        z1 = x + y
-                        print(z1)
-                    ''',language='python')
-             st.write('**Valor de x**')
-             st.write(x)
-             st.write('**Valor de y**')
-             st.write(y)
-             st.write('**Soma x + y**')
-             st.write(z1)
 
-        with st.expander('**Operação de soma com função `.add`**'):
+        with st.expander('**Operação de soma com função `torch.add()`**'):
              z2 = torch.add(x, y)  
              st.code('''
                         # Cria 2 tensores
@@ -709,75 +706,63 @@ def main():
                         # Operação soma com `.add`
                         z2 = torch.add(x, y)  
                         print(z2)
-                    ''',language='python')
-             st.write('**Valor de x**')
-             st.write(x)
-             st.write('**Valor de y**')
-             st.write(y)
-             st.write('**Soma x + y**')
-             st.write(z2)
-
-        with st.expander('**Somando valores a todos os elementos do tensor com `.add`**'):
-            r = torch.add(x, 10)
-            st.code('''
-                        # Somando o valor 10 aos elementos do objeto Tensor.
-                        r = torch.add(x, 10)
-                        print(r)
-
-                    ''', language='python')
-            st.write('**Valor do tensor r após soma**')
-            st.write(r)
-        
-        with st.expander('**Subtração com o método `.sub()`**'):
-            st.write('''
-                       As formas anteriores para a soma como "x + y" também funcionam para
-                       o caso da subtração "x-y".
-                       O método `.sub()` também é possivel utilizar de forma in-place e com parâmetro out.
                     ''')
-            # Criando um tensor
-            x = torch.tensor([1, 2, 3])
-            
-            # Subtraindo um valor escalar
-            y = torch.sub(x, 1)
-            st.code('''
-                        # Subtraindo valores
-                        x = torch.Tensor([1,2,3])
-                        y = torch.sub(x, 1)
+             st.write('**Valor de x**', x.numpy())
+             st.write('**Valor de y**', y.numpy())
+             st.write('**Soma x + y**', z2.numpy())
+ 
+        with st.expander('**Somando valores a todos os elementos do tensor com `torch.add()`**'):
+             r = torch.add(x, 10)
+             st.code('''
+                       # Somando o valor 10 aos elementos do objeto Tensor.
+                       r = torch.add(x, 10)
+                       print(r)
+                     ''')
+             st.write('**Valor do tensor r após soma**', r)
+        
+        with st.expander('**Subtração com o método `torch.sub()`**'):
+             st.write('''
+                        As formas anteriores para a soma como "x + y" também funcionam para
+                        o caso da subtração "x-y".
+                        O método `.sub()` também é possivel utilizar de forma in-place e com parâmetro out.
+                     ''')
+             x = torch.tensor([1, 2, 3])
+             y = torch.sub(x, 1)
 
-                    ''',language='python')
-            st.write('**Resultado da subtração**')
-            st.write(y)
-            
-            
+             st.code('''
+                       # Subtraindo valores
+                       x = torch.Tensor([1,2,3])
+                       y = torch.sub(x, 1)
+                     ''')
+             st.write('**Resultado da subtração**', y.numpy())
 
         st.write('### O Parâmetro "out" em Operações de Tensores no PyTorch')  
         st.write('''
-                    No PyTorch, o parâmetro `out` em operações de tensores 
-                    oferece uma maneira flexível de controlar onde o resultado 
-                    da operação será armazenado. Em muitas situações, podemos 
-                    querer atribuir o resultado de uma operação a uma variável 
-                    específica ou a um local de memória predefinido, e o 
-                    parâmetro "out" nos permite fazer isso de forma eficiente.
+                   No PyTorch, o parâmetro `out` em operações de tensores 
+                   oferece uma maneira flexível de controlar onde o resultado 
+                   da operação será armazenado. Em muitas situações, podemos 
+                   querer atribuir o resultado de uma operação a uma variável 
+                   específica ou a um local de memória predefinido, e o 
+                   parâmetro "out" nos permite fazer isso de forma eficiente.
                  ''')
+        
         v1 = torch.Tensor(2, 3)
+        torch.add(x, y, out = v1)
         with st.expander('**Aplicação do parêmetro `out`**'):        
+             st.code('''
+                       # Criando um tensor
+                       v1 = torch.Tensor(2, 3)
+                       print(v1)
+                     ''')
+             st.write('**Tensor v1**', v1)
+ 
+             st.code('''
+                       # Podemos atribuir o resultado da operação a uma variável. 
+                       # Todos os métodos de operação possuem um parâmetro out para armazenar o resultado.
+                       torch.add(x, y, out = v1)
+                     ''')
+             st.write('**Tensor v1 com soma utilizando parametro `out`**', v1)
             
-            st.code('''
-                        # Criando um tensor
-                        v1 = torch.Tensor(2, 3)
-                        print(v1)
-                    ''',language='python')
-            st.write('**Tensor v1**')
-            st.write(v1)
-
-            torch.add(x, y, out = v1)
-            st.code('''
-                        # Podemos atribuir o resultado da operação a uma variável. 
-                        # Todos os métodos de operação possuem um parâmetro out para armazenar o resultado.
-                        torch.add(x, y, out = v1)
-                    ''',language='python')
-            st.write('**Tensor v1 com soma utilizando parametro `out`**')
-            st.write(v1)
 
         st.write('### Aplicações do parâmetro Out') 
         st.write('''
@@ -801,7 +786,7 @@ def main():
                     e legível, pois evita a necessidade de atribuir o resultado da operação 
                     a uma variável separada. Isso pode simplificar o fluxo de trabalho de 
                     desenvolvimento e facilitar a manutenção do código ao longo do tempo.
-                    ''')
+                ''')
         
         st.write('### Operações In-place')
         st.write(''' 
@@ -810,8 +795,11 @@ def main():
                     resultado. Isso é feito alterando os valores dos próprios 
                     elementos do tensor, em vez de alocar memória para um novo 
                     tensor. Como resultado, as operações in-place são mais eficientes 
-                    em termos de uso de memória e tempo de execução.''')
-        st.write('''**Sintaxe e Exemplos:**
+                    em termos de uso de memória e tempo de execução.
+                 ''')
+        st.write('''
+                    **Sintaxe e Exemplos:**
+                 
                     A sintaxe para realizar uma operação in-place em PyTorch é adicionar
                     um sublinhado `_` ao final do nome da operação. Por exemplo, a operação
                     de adição in-place é representada pelo método `add_()`.
@@ -824,7 +812,7 @@ def main():
                         # In-place operation
                         # Mesmo que: x = x + y
                         x.add_(y)   
-                    ''',language='python')
+                    ''')
              st.write('**Mesmo que: x = x + y**')
              st.write(x.add_(y))
 
@@ -841,45 +829,45 @@ def main():
 
         st.write('### Mais operações - Estatística')
         with st.expander('**Soma cumulativa `torch.cumsum()`**'):
-            st.write('''
-                        O método `.cumsum()` é a função que calcula a soma cumulativa ao longo de um eixo 
-                        específico do tensor, adicionando os elementos do tensor sequencialmente. 
-                        Isso é útil em uma variedade de cenários, incluindo processamento de sinais, 
-                        análise de séries temporais e em algoritmos de otimização.
-                     
-                        Ao usar o método `cumsum()` em um tensor, podemos controlar o eixo ao longo do 
-                        qual desejamos calcular a soma cumulativa. Por padrão, a soma cumulativa é 
-                        realizada ao longo do primeiro eixo do tensor, mas podemos especificar o 
-                        eixo desejado como um parâmetro.
-                    ''')
-            x = torch.Tensor([[1,2,3],
-                              [4,5,6],
-                              [7,8,9]])
-            st.code(''' 
-                        # Criando um tensor de 2 dimensões
-                        x = torch.Tensor([[1,2,3],[4,5,6],[7,8,9]])
-                        print(x)
-                    ''',language='python')
-            st.write('**Valor do tensor x**')
-            st.write(x)
-            
-            r = torch.cumsum(x, dim=0)
-            st.code(''' 
-                        # Soma acumulada por coluna
-                        r = torch.cumsum(x, dim = 0)
-                        print(r)
-                    ''', language='python')
-            st.write('**Soma acumulada por coluna**')
-            st.write(r)
+             st.write('''
+                         O método `.cumsum()` é a função que calcula a soma cumulativa ao longo de um eixo 
+                         específico do tensor, adicionando os elementos do tensor sequencialmente. 
+                         Isso é útil em uma variedade de cenários, incluindo processamento de sinais, 
+                         análise de séries temporais e em algoritmos de otimização.
+                      
+                         Ao usar o método `cumsum()` em um tensor, podemos controlar o eixo ao longo do 
+                         qual desejamos calcular a soma cumulativa. Por padrão, a soma cumulativa é 
+                         realizada ao longo do primeiro eixo do tensor, mas podemos especificar o 
+                         eixo desejado como um parâmetro.
+                     ''')
+             x = torch.Tensor([[1,2,3],
+                               [4,5,6],
+                               [7,8,9]])
+             st.code(''' 
+                         # Criando um tensor de 2 dimensões
+                         x = torch.Tensor([[1,2,3],[4,5,6],[7,8,9]])
+                         print(x)
+                     ''',language='python')
+             st.write('**Valor do tensor x**',x)
 
-            r = torch.cumsum(x, dim=1)
-            st.code(''' 
-                        # Soma acumulada por linha
-                        r = torch.cumsum(x, dim = 1)
-                        print(r)
-                    ''', language='python')
-            st.write('**Soma acumulada por linha**')
-            st.write(r)
+             
+             r = torch.cumsum(x, dim=0)
+             st.code(''' 
+                         # Soma acumulada por coluna
+                         r = torch.cumsum(x, dim = 0)
+                         print(r)
+                     ''', language='python')
+             st.write('**Soma acumulada por coluna**',r)
+
+ 
+             r = torch.cumsum(x, dim=1)
+             st.code(''' 
+                         # Soma acumulada por linha
+                         r = torch.cumsum(x, dim = 1)
+                         print(r)
+                     ''', language='python')
+             st.write('**Soma acumulada por linha**', r)
+
 
         with st.expander('**Média `torch.mean()`**'):
              st.write('''
@@ -891,7 +879,6 @@ def main():
                      ''')
              r = torch.mean(x)
              st.code('''
-                        import torch
                         # Cria 1 tensor de 2 dimensões
                         x = torch.Tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
                      
@@ -900,8 +887,7 @@ def main():
                         print(r)
 
                     ''',language='python')
-             st.write('**Média dos valores do Tensor**')
-             st.write(r)
+             st.write('**Média dos valores do Tensor**',r)
 
              r = torch.mean(x, 0)
              st.code('''
@@ -1287,10 +1273,7 @@ def main():
               st.write('**Tensor após unsqueeze:**')
               st.write(y)
               st.write("Dimensões do tensor após unsqueeze:", y.shape)
-                           
-             
-
-            
+                        
         
 if __name__ == "__main__":
     main()
