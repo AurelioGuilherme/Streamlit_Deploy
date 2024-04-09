@@ -6,5 +6,4 @@ numpy
 torch
 pytorch-lightning
 streamlit_option_menu
-HTMLExporter
 nbconvert
