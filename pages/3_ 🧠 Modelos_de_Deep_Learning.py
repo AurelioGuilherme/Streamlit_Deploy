@@ -40,17 +40,17 @@ def main():
     elif selected == '1 - Visão computacional - ResNet':
         st.title('Notebook Jupyter')
 
-    # Carregando o notebook
-    with codecs.open('Notebook/teste_notebook.ipynb', 'r', 'utf-8') as notebook_file:
-        notebook_content = notebook_file.read()
-        notebook = nbformat.reads(notebook_content, as_version=4)
-
-    # Convertendo o notebook para HTML
-    html_exporter = HTMLExporter()
-    html_body, _ = html_exporter.from_notebook_node(notebook)
-
-    # Exibindo o conteúdo do notebook como HTML
-    st.components.v1.html(html_body, width=800, height=600, scrolling=True)
+        # Carregando o notebook
+        with codecs.open('Notebook/teste_notebook.ipynb', 'r', 'utf-8') as notebook_file:
+            notebook_content = notebook_file.read()
+            notebook = nbformat.reads(notebook_content, as_version=4)
+    
+        # Convertendo o notebook para HTML
+        html_exporter = HTMLExporter()
+        html_body, _ = html_exporter.from_notebook_node(notebook)
+    
+        # Exibindo o conteúdo do notebook como HTML
+        st.components.v1.html(html_body, width=800, height=600, scrolling=True)
 
 
 if __name__ == "__main__":
