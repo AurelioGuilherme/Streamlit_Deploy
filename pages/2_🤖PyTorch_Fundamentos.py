@@ -15,7 +15,7 @@ MENU_LIST =['0 - O que são tensores?',
             '3 - Operações aritméticas com Tensores',
             '4 - Concatenação, Expansão, Junção, Chunk, Squeeze']
 
-st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON)
+st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON, layout="wide")
 ICON_LIST = []
 for i in MENU_LIST:
     ICON_LIST.append('bi bi-droplet')

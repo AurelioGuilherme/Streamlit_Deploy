@@ -4,6 +4,7 @@ from streamlit_option_menu import option_menu
 from nbconvert import HTMLExporter
 import nbformat
 import codecs
+from functions import helpers
 
 PAGE_TITLE = 'Modelos de Deep Learning 🧠'
 PAGE_ICON = "🧠"
@@ -11,7 +12,8 @@ MENU_LIST = ['Sobre',
              "1 - Visão computacional - ResNet"]
 ICON_LIST = ["🧠","👀"]
 
-st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON)
+
+st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON, layout="wide")
 
 
 with st.sidebar:
@@ -38,19 +40,32 @@ def main():
                 ''')
         
     elif selected == '1 - Visão computacional - ResNet':
-        st.title('Notebook Jupyter')
+        st.title('ResNet (Rede Neural Residual): Classificação de imagens')
 
-        # Carregando o notebook
-        with codecs.open('Notebook/teste_notebook.ipynb', 'r', 'utf-8') as notebook_file:
-            notebook_content = notebook_file.read()
-            notebook = nbformat.reads(notebook_content, as_version=4)
-    
-        # Convertendo o notebook para HTML
-        html_exporter = HTMLExporter()
-        html_body, _ = html_exporter.from_notebook_node(notebook)
-    
-        # Exibindo o conteúdo do notebook como HTML
-        st.components.v1.html(html_body, width=800, height=600, scrolling=True)
+        st.write('''
+                   A ResNet é uma arquitetura de rede neural convolucional (CNN) proposta por 
+                   Kaiming He et al. em 2015. Ela introduziu o conceito de blocos residuais, 
+                   que permitem que a rede aprenda as diferenças entre as características de 
+                   entrada e de saída em vez de tentar aprender as características originais 
+                   diretamente. Isso facilita o treinamento de redes muito profundas, 
+                   alcançando ótimos resultados em diversas tarefas de visão computacional, 
+                   incluindo classificação de imagens.
+                ''')
+        st.write('''
+                   Para explorar o potencial da ResNet para reconhecimento de imagens, 
+                   utilizarei o CIFAR-10, que é um conjunto de dados comumente utilizado 
+                   para benchmarking em visão computacional. Consiste em 60.000 imagens coloridas 
+                   de 32x32 pixels, divididas em 10 classes, como carros, pássaros, gatos, entre 
+                   outros. O `CIFAR10DataModule`, disponível na biblioteca PyTorch Lightning Bolts, 
+                   simplifica o carregamento e a preparação desses dados para treinamento de modelos.
+                   ''')
+
+
+        
+        # Definindo o expander com estilos CSS para ajustar o tamanho
+        with st.expander('**Notebook Jupyter**'):
+            helpers.load_notebook('Notebook/teste_notebook.ipynb')
+           
 
 
 if __name__ == "__main__":
