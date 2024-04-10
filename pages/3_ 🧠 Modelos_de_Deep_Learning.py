@@ -82,7 +82,7 @@ def main():
         # Carregando notebook no streamlit com expander
         with st.expander('**Notebook Jupyter**'):
             
-            helpers.load_notebook('Notebook/teste_notebook.ipynb')
+            helpers.load_notebook('Notebook/ResNet-image-classification.ipynb')
            
 
 
