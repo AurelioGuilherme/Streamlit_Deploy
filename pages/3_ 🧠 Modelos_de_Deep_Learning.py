@@ -24,8 +24,10 @@ st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON, layout="wide")
 '''
     Load data
 '''
-with open('./Data/cifar10\dados_test', mode = 'rb') as file:
+with open('./Data/cifar10/dados_test', mode = 'rb') as file:
     data = pickle.load(file, encoding = 'bytes')
+
+#data = pickle.load('./Data/cifar10\dados_test', encoding = 'bytes')
 
 X = data[b'data']
 y = np.array(data[b'labels'])
