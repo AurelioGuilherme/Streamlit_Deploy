@@ -59,11 +59,29 @@ def main():
                    outros. O `CIFAR10DataModule`, disponível na biblioteca PyTorch Lightning Bolts, 
                    simplifica o carregamento e a preparação desses dados para treinamento de modelos.
                    ''')
+        st.write('''[Link CIFAR10 Dataset](https://www.cs.toronto.edu/~kriz/cifar.html)''')
+        st.write('''
+                   ### Classes do Conjunto de Dados CIFAR-10
+                   
+                   | Número | Classe       |
+                   |--------|--------------|
+                   | 0      | Avião        |
+                   | 1      | Automóvel    |
+                   | 2      | Pássaro      |
+                   | 3      | Gato         |
+                   | 4      | Cervo        |
+                   | 5      | Cachorro     |
+                   | 6      | Sapo         |
+                   | 7      | Cavalo       |
+                   | 8      | Navio        |
+                   | 9      | Caminhão     |
+                ''')
+        st.write('---')
 
 
-        
-        # Definindo o expander com estilos CSS para ajustar o tamanho
+        # Carregando notebook no streamlit com expander
         with st.expander('**Notebook Jupyter**'):
+            
             helpers.load_notebook('Notebook/teste_notebook.ipynb')
            
 
