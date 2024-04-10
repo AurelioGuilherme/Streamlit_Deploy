@@ -5,6 +5,11 @@ from nbconvert import HTMLExporter
 import nbformat
 import codecs
 from functions import helpers
+import pickle
+import numpy as np
+import torchvision
+from pl_bolts.transforms.dataset_normalizations import cifar10_normalization
+
 
 PAGE_TITLE = 'Modelos de Deep Learning 🧠'
 PAGE_ICON = "🧠"
@@ -12,8 +17,22 @@ MENU_LIST = ['Sobre',
              "1 - Visão computacional - ResNet"]
 ICON_LIST = ["🧠","👀"]
 MODEL = torch.load('./models/image_recognition/saved_models/modelo_dl.pth')
-
 st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON, layout="wide")
+
+
+'''
+    Load data
+'''
+with open('./Data/cifar10\dados_test', mode = 'rb') as file:
+    data = pickle.load(file, encoding = 'bytes')
+
+X = data[b'data']
+y = np.array(data[b'labels'])
+raw_images = X.reshape(10000, 3, 32, 32).transpose(0,2,3,1).astype("uint8")
+
+
+
+
 
 
 with st.sidebar:
@@ -77,9 +96,16 @@ def main():
                    | 9      | Caminhão     |
                 ''')
         st.write('---')
-
+        if st.button('Selecionar 10 Imagens Aleatórias'):
+            # Selecionar 10 índices aleatórios
+            random_indices = np.random.choice(len(raw_images), size=10, replace=False)
+            # Exibir as imagens selecionadas em colunas separadas
+            columns = st.columns(10)  # Dividir a largura disponível em 10 colunas
+            for i, idx in enumerate(random_indices):
+                with columns[i]:  # Exibir cada imagem em uma coluna separada
+                    st.image(raw_images[idx], caption=f'Imagem {idx+1}', width=100, use_column_width=False)
+             
         
-        #st.write(MODEL)
 
 
         # Carregando notebook no streamlit com expander
