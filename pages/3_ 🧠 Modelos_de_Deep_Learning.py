@@ -11,7 +11,7 @@ PAGE_ICON = "🧠"
 MENU_LIST = ['Sobre',
              "1 - Visão computacional - ResNet"]
 ICON_LIST = ["🧠","👀"]
-
+MODEL = torch.load('./models/image_recognition/saved_models/modelo_dl.pth')
 
 st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON, layout="wide")
 
@@ -77,6 +77,9 @@ def main():
                    | 9      | Caminhão     |
                 ''')
         st.write('---')
+
+        
+        #st.write(MODEL)
 
 
         # Carregando notebook no streamlit com expander
