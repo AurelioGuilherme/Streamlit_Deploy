@@ -8,7 +8,7 @@ from functions import helpers
 import pickle
 import numpy as np
 import torchvision
-from pl_bolts.transforms.dataset_normalizations import cifar10_normalization
+#from pl_bolts.transforms.dataset_normalizations import cifar10_normalization
 
 
 PAGE_TITLE = 'Modelos de Deep Learning 🧠'
@@ -17,7 +17,7 @@ MENU_LIST = ['Sobre',
              "1 - Visão computacional - ResNet"]
 ICON_LIST = ["🧠","👀"]
 MODEL = torch.load('./models/image_recognition/saved_models/modelo_dl.pth')
-MODEL.eval()
+#MODEL.eval()
 st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON, layout="wide")
 
 
