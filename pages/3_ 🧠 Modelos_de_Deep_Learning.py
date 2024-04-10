@@ -8,7 +8,12 @@ from functions import helpers
 import pickle
 import numpy as np
 import torchvision
-#from pl_bolts.transforms.dataset_normalizations import cifar10_normalization
+import torchvision.transforms as transforms
+from pl_bolts.datamodules import CIFAR10DataModule
+from pl_bolts.transforms.dataset_normalizations import cifar10_normalization
+import torch.nn as nn
+import torch.nn.functional as F
+import pytorch_lightning as pl
 
 
 PAGE_TITLE = 'Modelos de Deep Learning 🧠'
@@ -16,53 +21,44 @@ PAGE_ICON = "🧠"
 MENU_LIST = ['Sobre',
              "1 - Visão computacional - ResNet"]
 ICON_LIST = ["🧠","👀"]
-MODEL = torch.load('./models/image_recognition/saved_models/modelo_dl.pth')
-#MODEL.eval()
 st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON, layout="wide")
 
+# --- LOAD MODEL ---
 
-'''
-    Load data
-'''
+MODEL = torch.load('./models/image_recognition/saved_models/modelo_dl.pth')
+model = pl.LightningModule()
+model.load_state_dict(
+    state_dict=torch.load('./models/image_recognition/saved_models/modelo_dl.pth'),
+    strict=False
+)
+model.eval()
+
+#st.write(model)
+
+# --- LOAD DATA ---
+
 with open('./Data/cifar10/dados_test', mode = 'rb') as file:
     data = pickle.load(file, encoding = 'bytes')
-
-#data = pickle.load('./Data/cifar10\dados_test', encoding = 'bytes')
 
 X = data[b'data']
 y = np.array(data[b'labels'])
 raw_images = X.reshape(10000, 3, 32, 32).transpose(0,2,3,1).astype("uint8")
 
-
-'''
-Transform data
-'''
-def predict_image(image):
-    # Pré-processamento da imagem (normalização, etc.)
-
-    preprocessed_image = preprocess_image(image)
-    
-    # Convertendo a imagem pré-processada para tensores PyTorch
-    tensor_image = torch.from_numpy(preprocessed_image).unsqueeze(0)  # Adicionar dimensão de lote (batch)
-    
-    # Fazendo a predição com o modelo
-    with torch.no_grad():
-        output = MODEL(tensor_image)
-        predicted_class = torch.argmax(output).item()
-    
-    # Aqui você deve mapear o índice da classe prevista para a classe real
-    # Suponha que você tenha uma lista de nomes de classe, como class_names
-    class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
-    prediction = class_names[predicted_class]
-    
-    return prediction
-
-def preprocess_image(image):
-    # Implemente aqui seu pré-processamento de imagem, como normalização, redimensionamento, etc.
-    # Certifique-se de aplicar as mesmas transformações que foram usadas durante o treinamento do modelo
-    return image  # Para fins de exemplo, não fazemos nenhum pré-processamento aqui
+## Módulo para carregar os dados e aplicar os data loaders
+#prep_dados_teste = torchvision.transforms.Compose(
+#    [
+#        torchvision.transforms.ToTensor(),
+#        cifar10_normalization(),
+#    ]
+#)
+#
+#carrega_dados = CIFAR10DataModule(data_dir = './Data/cifar10/dados_test',
+#                                  test_transforms = prep_dados_teste,
+#                                  val_transforms = prep_dados_teste)
 
 
+
+# --- PAGE VIEW ---
 
 with st.sidebar:
     selected = option_menu("",
@@ -133,6 +129,8 @@ def main():
             for i, idx in enumerate(random_indices):
                 with columns[i]:  # Exibir cada imagem em uma coluna separada
                     st.image(raw_images[idx], caption=f'Imagem {idx+1}', width=100, use_column_width=False)
+        
+        st.write('---')
 
         
 
