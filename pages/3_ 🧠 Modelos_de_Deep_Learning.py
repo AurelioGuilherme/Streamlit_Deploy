@@ -9,11 +9,11 @@ import pickle
 import numpy as np
 import torchvision
 import torchvision.transforms as transforms
-from pl_bolts.datamodules import CIFAR10DataModule
-from pl_bolts.transforms.dataset_normalizations import cifar10_normalization
-import torch.nn as nn
-import torch.nn.functional as F
-import pytorch_lightning as pl
+#from pl_bolts.datamodules import CIFAR10DataModule
+#from pl_bolts.transforms.dataset_normalizations import cifar10_normalization
+#import torch.nn as nn
+#import torch.nn.functional as F
+#import pytorch_lightning as pl
 
 
 PAGE_TITLE = 'Modelos de Deep Learning 🧠'
@@ -25,13 +25,13 @@ st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON, layout="wide")
 
 # --- LOAD MODEL ---
 
-MODEL = torch.load('./models/image_recognition/saved_models/modelo_dl.pth')
-model = pl.LightningModule()
-model.load_state_dict(
-    state_dict=torch.load('./models/image_recognition/saved_models/modelo_dl.pth'),
-    strict=False
-)
-model.eval()
+#MODEL = torch.load('./models/image_recognition/saved_models/modelo_dl.pth')
+#model = pl.LightningModule()
+#model.load_state_dict(
+#    state_dict=torch.load('./models/image_recognition/saved_models/modelo_dl.pth'),
+#    strict=False
+#)
+#model.eval()
 
 #st.write(model)
 
