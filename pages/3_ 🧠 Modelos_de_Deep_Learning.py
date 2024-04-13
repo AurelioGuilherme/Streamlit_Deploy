@@ -194,7 +194,11 @@ def main():
                    | 8      | Navio        |
                    | 9      | Caminhão     |
                 ''')
+        
+        
         st.write('---')
+        st.write('## Predizendo as Classes CIFAR 10 com modelo ResNet:\n')
+        st.write('')
 
         classes = {0: 'Avião',
                    1: 'Automóvel',
@@ -227,7 +231,7 @@ def main():
             return np.transpose(img, (1, 2, 0))
         
          
-        if st.button('Selecionar 10 Imagens Aleatórias'):
+        if st.button('Predizer 10 Imagens Aleatórias'):
                       
             for i in range(tamanho):
                 foto = images[i] / 2 + 0.5
