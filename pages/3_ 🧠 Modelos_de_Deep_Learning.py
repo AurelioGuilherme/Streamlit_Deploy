@@ -39,9 +39,9 @@ from torch.optim.lr_scheduler import OneCycleLR
 from torchmetrics.classification import Accuracy
 
 # Visualização de dados
-import matplotlib.pyplot as plt
+
 from torchvision import datasets
-from PIL import Image
+
 
 
 # Módulo para carregar um modelo pré-treinado de arquitetura ResNet sem os pesos (queremos somente a arquitetura)
