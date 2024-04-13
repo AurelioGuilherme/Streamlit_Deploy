@@ -8,3 +8,4 @@ pytorch-lightning
 streamlit_option_menu
 nbconvert
 torchvision
+lightning-bolts
