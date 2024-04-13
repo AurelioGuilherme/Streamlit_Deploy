@@ -9,11 +9,12 @@ import pickle
 import numpy as np
 import torchvision
 import torchvision.transforms as transforms
-#from pl_bolts.datamodules import CIFAR10DataModule
-#from pl_bolts.transforms.dataset_normalizations import cifar10_normalization
-#import torch.nn as nn
-#import torch.nn.functional as F
-#import pytorch_lightning as pl
+from pl_bolts.datamodules import CIFAR10DataModule
+from pl_bolts.transforms.dataset_normalizations import cifar10_normalization
+import torch.nn as nn
+import torch.nn.functional as F
+import pytorch_lightning as pl
+
 
 
 PAGE_TITLE = 'Modelos de Deep Learning 🧠'
@@ -25,15 +26,11 @@ st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON, layout="wide")
 
 # --- LOAD MODEL ---
 
-#MODEL = torch.load('./models/image_recognition/saved_models/modelo_dl.pth')
-#model = pl.LightningModule()
-#model.load_state_dict(
-#    state_dict=torch.load('./models/image_recognition/saved_models/modelo_dl.pth'),
-#    strict=False
-#)
-#model.eval()
 
-#st.write(model)
+
+
+
+
 
 # --- LOAD DATA ---
 
@@ -44,17 +41,10 @@ X = data[b'data']
 y = np.array(data[b'labels'])
 raw_images = X.reshape(10000, 3, 32, 32).transpose(0,2,3,1).astype("uint8")
 
-## Módulo para carregar os dados e aplicar os data loaders
-#prep_dados_teste = torchvision.transforms.Compose(
-#    [
-#        torchvision.transforms.ToTensor(),
-#        cifar10_normalization(),
-#    ]
-#)
-#
-#carrega_dados = CIFAR10DataModule(data_dir = './Data/cifar10/dados_test',
-#                                  test_transforms = prep_dados_teste,
-#                                  val_transforms = prep_dados_teste)
+
+
+
+
 
 
 
@@ -121,15 +111,37 @@ def main():
                    | 9      | Caminhão     |
                 ''')
         st.write('---')
-        if st.button('Selecionar 10 Imagens Aleatórias'):
-            # Selecionar 10 índices aleatórios
-            random_indices = np.random.choice(len(raw_images), size=10, replace=False)
-            # Exibir as imagens selecionadas em colunas separadas
-            columns = st.columns(10)  # Dividir a largura disponível em 10 colunas
-            for i, idx in enumerate(random_indices):
-                with columns[i]:  # Exibir cada imagem em uma coluna separada
-                    st.image(raw_images[idx], caption=f'Imagem {idx+1}', width=100, use_column_width=False)
+
+        classes = {0: 'Avião',
+                   1: 'Automóvel',
+                   2: 'Pássaro',
+                   3: 'Gato',
+                   4: 'Cervo',
+                   5: 'Cachorro',
+                   6: 'Sapo',
+                   7: 'Cavalo',
+                   8: 'Navio',
+                   9: 'Caminhão'}
+
+
+
+
+
         
+        if st.button('Selecionar 10 Imagens Aleatórias'):
+           # Selecionar 10 índices aleatórios
+           random_indices = np.random.choice(len(raw_images), size=10, replace=False)
+           
+           # Exibir as imagens e as classes previstas
+           columns = st.columns(10)  # Dividir a largura disponível em 10 colunas
+
+           # Exibir as imagens selecionadas em colunas separadas       
+           for i, idx in enumerate(random_indices):
+                with columns[i]:  # Exibir cada imagem em uma coluna separada
+                    st.image(raw_images[idx], caption=f'Imagem {idx+1}: {classes[y[idx]]}', width=100, use_column_width=False)
+                    
+
+
         st.write('---')
 
         
