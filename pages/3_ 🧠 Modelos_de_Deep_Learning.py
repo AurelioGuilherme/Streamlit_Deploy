@@ -1,19 +1,9 @@
 import streamlit as st
-import torch
 from streamlit_option_menu import option_menu
-from nbconvert import HTMLExporter
-import nbformat
-import codecs
 from functions import helpers
 import pickle
 import numpy as np
-import torchvision
-import torchvision.transforms as transforms
-from pl_bolts.datamodules import CIFAR10DataModule
-from pl_bolts.transforms.dataset_normalizations import cifar10_normalization
-import torch.nn as nn
-import torch.nn.functional as F
-import pytorch_lightning as pl
+
 
 
 
@@ -40,9 +30,6 @@ with open('./Data/cifar10/dados_test', mode = 'rb') as file:
 X = data[b'data']
 y = np.array(data[b'labels'])
 raw_images = X.reshape(10000, 3, 32, 32).transpose(0,2,3,1).astype("uint8")
-
-
-
 
 
 
