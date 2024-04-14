@@ -175,7 +175,7 @@ def main():
 
         st.write('### Resultado do modelo')
         st.write('''
-                    O Modelo apresentou uma acuracia de **91,14%** em dados de teste.
+                    O Modelo apresentou uma acurácia de **91,14%** em dados de teste.
                  
                 ''')
         def show_metrics(path_metrics):
