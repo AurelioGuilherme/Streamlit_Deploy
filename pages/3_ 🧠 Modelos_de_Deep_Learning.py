@@ -1,122 +1,26 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 from functions import helpers
-import pickle
 import numpy as np
+from models.image_recognition.ResNet import *
 
-
-
-
+# --- CONFIG PAGE LAYOUT ---
 PAGE_TITLE = 'Modelos de Deep Learning 🧠'
 PAGE_ICON = "🧠"
 MENU_LIST = ['Sobre',
              "1 - Visão computacional - ResNet"]
 ICON_LIST = ["🧠","👀"]
+
 st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON, layout="wide")
 
-# --- LOAD MODEL ---
-# Sistema e manipulação de arquivos
-import os
-import warnings
-warnings.filterwarnings("ignore")
 
-# Manipulação e processamento de dados
-import numpy as np
-from pl_bolts.transforms.dataset_normalizations import cifar10_normalization
-
-# Modelagem
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torchvision
-from pytorch_lightning import LightningModule
+# --- LOAD MODEL --- #
+model = ModeloResnet()
+model.load_state_dict(torch.load('./models/image_recognition/saved_models/modelo_dl.pth'))
+model.eval()
 
 
-from torch.optim.lr_scheduler import OneCycleLR
-
-
-# Avaliação do modelo
-from torchmetrics.classification import Accuracy
-
-# Visualização de dados
-
-from torchvision import datasets
-
-
-
-# Módulo para carregar um modelo pré-treinado de arquitetura ResNet sem os pesos (queremos somente a arquitetura)
-def carrega_modelo_pretreinado():
-    modelo = torchvision.models.resnet18(weights = None, num_classes = 10)
-    modelo.conv1 = nn.Conv2d(3, 64, kernel_size = (3, 3), stride = (1, 1), padding = (1, 1), bias = False)
-    modelo.maxpool = nn.Identity()
-    return modelo
-
-# Classe com Arquitetura do Modelo
-class ModeloResnet(LightningModule):
-    
-    # Método construtor
-    def __init__(self, lr = 0.05):
-        super().__init__()
-        self.save_hyperparameters()
-        self.model = carrega_modelo_pretreinado()
-
-    # Método Forward
-    def forward(self, x):
-        out = self.model(x)
-        return F.log_softmax(out, dim = 1)
-
-    # Método de um passo de treinamento
-    def training_step(self, batch, batch_idx):
-        x, y = batch
-        logits = self(x)
-        loss = F.nll_loss(logits, y)
-        self.log("train_loss", loss)
-        return loss
-
-    # Método de avaliação
-    def evaluate(self, batch, stage = None):
-        x, y = batch
-        logits = self(x)
-        loss = F.nll_loss(logits, y)
-        preds = torch.argmax(logits, dim = 1)
-        accuracy = Accuracy(task = "multiclass", num_classes = 10).to(device)
-        acc = accuracy(preds, y)
-
-        if stage:
-            self.log(f"{stage}_loss", loss, prog_bar = True)
-            self.log(f"{stage}_acc", acc, prog_bar = True)
-
-    # Método de um passo de validação
-    def validation_step(self, batch, batch_idx):
-        self.evaluate(batch, "val")
-
-    # Método de um passo de teste
-    def test_step(self, batch, batch_idx):
-        self.evaluate(batch, "test")
-
-    # Método de configuração do otimizador
-    def configure_optimizers(self):
-        
-        # Otimização SGD
-        optimizer = torch.optim.SGD(self.parameters(), 
-                                    lr = self.hparams.lr, 
-                                    momentum = 0.9, 
-                                    weight_decay = 5e-4)
-        
-        # Passos por época
-        steps_per_epoch = 45000 // BATCH_SIZE
-        
-        # Scheduler
-        scheduler_dict = {
-            "scheduler": OneCycleLR(optimizer,
-                                    0.1,
-                                    epochs = self.trainer.max_epochs,
-                                    steps_per_epoch = steps_per_epoch),
-            "interval": "step",
-        }
-        
-        return {"optimizer": optimizer, "lr_scheduler": scheduler_dict}
-
+# --- LOAD DATA --- #
 test_data_pipeline = torchvision.transforms.Compose(
     [
         torchvision.transforms.ToTensor(),
@@ -126,13 +30,10 @@ test_data_pipeline = torchvision.transforms.Compose(
 
 testset  = datasets.CIFAR10(root='./Data/cifar10/teste',train = False,download=False, transform=test_data_pipeline)
 testloader = torch.utils.data.DataLoader(testset, batch_size=10, shuffle=True)
-model = ModeloResnet()
-model.load_state_dict(torch.load('./models/image_recognition/saved_models/modelo_dl.pth'))
-model.eval()
 
 
 
-# --- PAGE VIEW ---
+# --- PAGE VIEW --- #
 
 with st.sidebar:
     selected = option_menu("",
@@ -246,7 +147,6 @@ def main():
 
         # Carregando notebook no streamlit com expander
         with st.expander('**Notebook Jupyter**'):
-            
             helpers.load_notebook('Notebook/ResNet-image-classification.ipynb')
            
 
