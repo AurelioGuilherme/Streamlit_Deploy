@@ -1,5 +1,3 @@
-from pl_bolts.transforms.dataset_normalizations import cifar10_normalization
-
 # Modelagem
 import torch
 import torch.nn as nn
@@ -12,11 +10,7 @@ from torch.optim.lr_scheduler import OneCycleLR
 # Avaliação do modelo
 from torchmetrics.classification import Accuracy
 
-# Visualização de dados
-
-from torchvision import datasets
-
-# Módulo para carregar um modelo pré-treinado de arquitetura ResNet sem os pesos (queremos somente a arquitetura)
+# Módulo para carregar um modelo pré-treinado de arquitetura ResNet sem os pesos.
 def carrega_modelo_pretreinado():
     modelo = torchvision.models.resnet18(weights = None, num_classes = 10)
     modelo.conv1 = nn.Conv2d(3, 64, kernel_size = (3, 3), stride = (1, 1), padding = (1, 1), bias = False)

@@ -3,6 +3,14 @@ from streamlit_option_menu import option_menu
 from functions import helpers
 import numpy as np
 from models.image_recognition.ResNet import *
+from pl_bolts.transforms.dataset_normalizations import cifar10_normalization
+from torchvision import datasets
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import plotly.express as px
+        
+import plotly.graph_objects as go
 
 # --- CONFIG PAGE LAYOUT ---
 PAGE_TITLE = 'Modelos de Deep Learning 🧠'
@@ -79,24 +87,48 @@ def main():
                    simplifica o carregamento e a preparação desses dados para treinamento de modelos.
                    ''')
         st.write('''[Link CIFAR10 Dataset](https://www.cs.toronto.edu/~kriz/cifar.html)''')
-        st.write('''
-                   ### Classes do Conjunto de Dados CIFAR-10
-                   
-                   | Número | Classe       |
-                   |--------|--------------|
-                   | 0      | Avião        |
-                   | 1      | Automóvel    |
-                   | 2      | Pássaro      |
-                   | 3      | Gato         |
-                   | 4      | Cervo        |
-                   | 5      | Cachorro     |
-                   | 6      | Sapo         |
-                   | 7      | Cavalo       |
-                   | 8      | Navio        |
-                   | 9      | Caminhão     |
-                ''')
+
+        columns = st.columns(2)
+        with columns[0]:
+            st.write('''
+                       ### Classes do Conjunto de Dados CIFAR-10
+
+                       | Número | Classe       |
+                       |--------|--------------|
+                       | 0      | Avião        |
+                       | 1      | Automóvel    |
+                       | 2      | Pássaro      |
+                       | 3      | Gato         |
+                       | 4      | Cervo        |
+                       | 5      | Cachorro     |
+                       | 6      | Sapo         |
+                       | 7      | Cavalo       |
+                       | 8      | Navio        |
+                       | 9      | Caminhão     |
+                    ''')
+        with columns[1]:
+            st.write('''
+                        O modelo é construído com base na **ResNet-18** sem os pesos pré-treinados permitindo
+                         que a arquitetura seja utilizada, foi adicionado 2 camadas adicionais na arquiterura original,
+                        a primeira uma camada convolucional adicionando um valor de kernel com 3 canais de entrada 
+                        (correspondentes aos canais RGB das imagens) e 64 canais de saída, com um kernel size de (3, 3), 
+                        um stride de (1, 1) e um padding de (1, 1). 
+                     
+                        O kernel **(camada convolucional)** é uma pequena matriz de números que desliza sobre a imagem, multiplicando-se com os 
+                        pixels correspondentes e somando os resultados para gerar um único valor na imagem de saída desta forma 
+                        reduzindo a quantidade de parâmetros a serem aprendidos, aumentando a eficiência computacional e melhorando
+                        a capacidade de detectar características independentemente da sua localização exata na imagem.
+                     
+                        A outra camada adcional é a **camada de identidade** que não realiza nenhuma operação nos dados de entrada,
+                        agindo como um "pass-through" para preservar as características aprendidas pelas camadas anteriores, isso é feito
+                        para manter a dimensionalidade dos dados.
+                     
+                        Foi utilizado 20 epocas com learning rate de 0.05, foi utilzado uma GPU Nvidia GTX 1080 para treinamento, 
+                        que levou cerca de 50 minutos para conclui-lo.
+                     
+                     ''')
         
-        
+            st.write('[Documentação ResNet](https://pytorch.org/vision/main/models/resnet.html)')
         st.write('---')
         st.write('## Predizendo as Classes CIFAR 10 com modelo ResNet:\n')
         st.write('')
@@ -114,7 +146,7 @@ def main():
         
         resultado = ['❌','✅']
 
-
+        # Predizendo as classes
         dataiter = iter(testloader)
         images, labels = next(dataiter)
         tamanho = int(len(images))
@@ -123,11 +155,8 @@ def main():
         _, predicted = torch.max(outputs.data, 1) 
 
         def imshow(img):
-            # Unnormalize the image
             img = (img / 2) + 0.5
-            # Clip the image data to ensure it's within [0.0, 1.0]
             img = np.clip(img, 0.0, 1.0)
-            # Convert from tensor to numpy array
             img = img.numpy()
             return np.transpose(img, (1, 2, 0))
         
@@ -144,8 +173,32 @@ def main():
 
         st.write('---')
 
+        st.write('### Resultado do modelo')
+        st.write('''
+                    O Modelo apresentou uma acuracia de **91,14%** em dados de teste.
+                 
+                ''')
+        def show_metrics(path_metrics):
+            # Carrega as métricas
+            metricas = pd.read_csv(path_metrics)
+            del metricas["step"]
+            metricas.set_index("epoch", inplace = True)
+            plt.figure(figsize=(1, 1))
+            fig = sns.relplot(data = metricas, kind = "line")
+            plt.show()
+           
+            columns = st.columns(2)
+            with columns[0]:
+                st.pyplot(fig)
 
-        # Carregando notebook no streamlit com expander
+
+        
+     
+        
+
+        show_metrics('./models/image_recognition/saved_models/results/logs/lightning_logs/version_11/metrics.csv')
+
+                # Carregando notebook no streamlit com expander
         with st.expander('**Notebook Jupyter**'):
             helpers.load_notebook('Notebook/ResNet-image-classification.ipynb')
            
