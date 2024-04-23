@@ -8,5 +8,5 @@ pytorch-lightning
 streamlit_option_menu
 nbconvert
 torchvision
-lightning-bolts
+lightning-bolts==0.7.0
 seaborn
