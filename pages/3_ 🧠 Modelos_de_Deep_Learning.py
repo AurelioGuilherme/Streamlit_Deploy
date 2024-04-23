@@ -8,9 +8,9 @@ from torchvision import datasets
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import plotly.express as px
+
         
-import plotly.graph_objects as go
+
 
 # --- CONFIG PAGE LAYOUT ---
 PAGE_TITLE = 'Modelos de Deep Learning 🧠'

@@ -4,11 +4,16 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision
 from pytorch_lightning import LightningModule
+from pytorch_lightning.loggers import CSVLogger
 
 
 from torch.optim.lr_scheduler import OneCycleLR
 # Avaliação do modelo
 from torchmetrics.classification import Accuracy
+
+BATCH_SIZE = 8
+processing_device = 'cuda' if torch.cuda.is_available() else 'cpu'
+device = torch.device(processing_device)
 
 # Módulo para carregar um modelo pré-treinado de arquitetura ResNet sem os pesos.
 def carrega_modelo_pretreinado():
